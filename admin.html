@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Academia Mente Corporativa</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --azul:#0B1F3A; --azul-medio:#163660; --azul-card:#1A2E50;
+    --dourado:#C8972A; --dourado-claro:#E8B84B;
+    --branco:#F5F7FA; --cinza:#8A96A8; --cinza-claro:#E8ECF2;
+    --verde:#1A7A4A; --vermelho:#C0392B; --radius:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{ font-family:'Segoe UI',system-ui,sans-serif; background:var(--azul); color:var(--branco); min-height:100vh; }
+
+  /* LOGIN */
+  #login-overlay{
+    position:fixed;inset:0;background:#0B1F3A;
+    display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px;
+  }
+  .login-box{
+    background:var(--azul-medio);border-radius:var(--radius);padding:36px 32px;
+    width:100%;max-width:380px;border:1px solid rgba(200,151,42,0.3);text-align:center;
+  }
+  .login-box .icon{font-size:2.5rem;margin-bottom:12px;}
+  .login-box h2{color:var(--dourado);font-size:1.3rem;margin-bottom:6px;}
+  .login-box p{color:var(--cinza);font-size:0.85rem;margin-bottom:24px;}
+  .login-box input{
+    width:100%;padding:13px 16px;background:rgba(255,255,255,0.07);
+    border:1.5px solid rgba(200,151,42,0.2);border-radius:10px;
+    color:var(--branco);font-size:1rem;margin-bottom:12px;
+  }
+  .login-box input::placeholder{color:var(--cinza);}
+  .login-box button{
+    width:100%;padding:14px;background:var(--dourado);color:var(--azul);
+    border:none;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;
+  }
+  .login-error{color:#ff6b6b;font-size:0.82rem;margin-top:8px;}
+
+  /* CONFIG */
+  #config-overlay{
+    position:fixed;inset:0;background:#0B1F3A;
+    display:flex;align-items:center;justify-content:center;z-index:9998;padding:24px;
+  }
+  .config-box{
+    background:var(--azul-medio);border-radius:var(--radius);padding:32px 28px;
+    width:100%;max-width:420px;border:1px solid rgba(200,151,42,0.3);
+  }
+  .config-box h2{color:var(--dourado);font-size:1.15rem;margin-bottom:6px;}
+  .config-box p{color:var(--cinza);font-size:0.85rem;margin-bottom:20px;}
+  .config-box input{
+    width:100%;padding:12px 14px;background:rgba(255,255,255,0.07);
+    border:1px solid rgba(200,151,42,0.25);border-radius:8px;
+    color:var(--branco);font-size:0.9rem;margin-bottom:12px;
+  }
+  .config-box input::placeholder{color:var(--cinza);}
+  .config-box button{
+    width:100%;padding:13px;background:var(--dourado);color:var(--azul);
+    border:none;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer;
+  }
+  .config-error{color:#ff6b6b;font-size:0.82rem;margin-top:8px;text-align:center;}
+
+  /* HEADER */
+  .header{
+    background:var(--azul-medio);border-bottom:1px solid rgba(200,151,42,0.15);
+    padding:14px 24px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .header-brand{display:flex;align-items:center;gap:10px;}
+  .header-brand .icon{font-size:1.4rem;}
+  .header-brand h1{font-size:1rem;font-weight:800;color:var(--dourado);}
+  .header-brand span{font-size:0.75rem;color:var(--cinza);}
+  .header-right{font-size:0.78rem;color:var(--cinza);}
+  .dot-live{display:inline-block;width:7px;height:7px;background:#4ADE80;border-radius:50%;margin-right:5px;animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+  /* TABS */
+  .tabs{display:flex;background:var(--azul-medio);border-bottom:1px solid rgba(255,255,255,0.07);}
+  .tab{
+    flex:1;padding:14px 8px;text-align:center;font-size:0.85rem;font-weight:600;
+    color:var(--cinza);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;
+  }
+  .tab.ativa{color:var(--dourado);border-bottom-color:var(--dourado);}
+  .tab-content{display:none;padding:24px;max-width:1200px;margin:0 auto;}
+  .tab-content.ativa{display:block;}
+
+  /* CARDS */
+  .card{background:var(--azul-card);border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .card-titulo{font-size:0.8rem;color:var(--cinza);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;font-weight:600;}
+  .card-valor{font-size:2rem;font-weight:800;color:var(--branco);}
+  .card-sub{font-size:0.78rem;color:var(--cinza);margin-top:2px;}
+
+  .grid-metricas{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px;}
+  .metrica-card{background:var(--azul-card);border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius);padding:18px 16px;}
+  .metrica-label{font-size:0.78rem;color:var(--cinza);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+  .metrica-valor{font-size:1.8rem;font-weight:800;}
+  .metrica-sub{font-size:0.75rem;color:var(--cinza);margin-top:3px;}
+
+  /* PERFIS */
+  .perfis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px;}
+  .perfil-card{border-radius:var(--radius);padding:18px 16px;text-align:center;}
+  .perfil-desenvolvida{background:rgba(200,151,42,0.15);border:1px solid rgba(200,151,42,0.3);}
+  .perfil-em_desenvolvimento{background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);}
+  .perfil-operacional{background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);}
+  .perfil-card .p-icon{font-size:1.8rem;margin-bottom:6px;}
+  .perfil-card .p-nome{font-size:0.82rem;font-weight:700;margin-bottom:4px;}
+  .perfil-card .p-num{font-size:2rem;font-weight:800;}
+  .perfil-card .p-pct{font-size:0.78rem;color:var(--cinza);}
+
+  /* BARRAS */
+  .barra-wrap{margin-bottom:14px;}
+  .barra-label{display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:5px;}
+  .barra{height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;}
+  .barra-fill{height:100%;border-radius:4px;transition:width 1s ease;}
+  .barra-gestao{background:linear-gradient(90deg,#7C3AED,#C084FC);}
+  .barra-relacional{background:linear-gradient(90deg,#059669,#4ADE80);}
+  .barra-emocional{background:linear-gradient(90deg,#C85A1A,#FB923C);}
+
+  /* TEMPO */
+  .tempo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+  .tempo-card{background:var(--azul-card);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px;text-align:center;}
+  .tempo-card .t-val{font-size:1.5rem;font-weight:800;color:var(--dourado-claro);}
+  .tempo-card .t-label{font-size:0.74rem;color:var(--cinza);margin-top:3px;}
+  .dist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .dist-card{background:var(--azul-card);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px;text-align:center;}
+  .dist-card .d-val{font-size:1.3rem;font-weight:800;}
+  .dist-card .d-label{font-size:0.72rem;color:var(--cinza);margin-top:3px;}
+
+  /* EVENTOS */
+  .evento-form{background:var(--azul-card);border:1px solid rgba(200,151,42,0.2);border-radius:var(--radius);padding:20px;margin-bottom:20px;}
+  .evento-form h3{color:var(--dourado);font-size:0.95rem;margin-bottom:16px;}
+  .campo{margin-bottom:14px;}
+  .campo label{display:block;font-size:0.78rem;color:var(--cinza);margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
+  .campo input{
+    width:100%;padding:11px 14px;background:rgba(255,255,255,0.07);
+    border:1.5px solid rgba(200,151,42,0.15);border-radius:9px;
+    color:var(--branco);font-size:0.9rem;
+  }
+  .campo input:focus{outline:none;border-color:var(--dourado);}
+  .btn-criar{
+    padding:12px 24px;background:var(--dourado);color:var(--azul);
+    border:none;border-radius:9px;font-weight:700;font-size:0.9rem;cursor:pointer;
+  }
+  .qr-area{
+    background:var(--azul-card);border:1px solid rgba(200,151,42,0.2);
+    border-radius:var(--radius);padding:24px;text-align:center;margin-bottom:20px;
+    display:none;
+  }
+  .qr-area h3{color:var(--dourado);margin-bottom:4px;}
+  .qr-area p{color:var(--cinza);font-size:0.82rem;margin-bottom:16px;}
+  #qr-container{display:inline-block;background:#fff;padding:12px;border-radius:8px;}
+  .qr-link{font-size:0.8rem;color:var(--cinza);margin-top:12px;word-break:break-all;}
+  .btn-copiar{
+    margin-top:10px;padding:9px 18px;background:rgba(200,151,42,0.15);
+    border:1px solid rgba(200,151,42,0.3);border-radius:8px;
+    color:var(--dourado-claro);font-size:0.82rem;cursor:pointer;
+  }
+
+  .eventos-lista{background:var(--azul-card);border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius);overflow:hidden;}
+  .eventos-lista table{width:100%;border-collapse:collapse;}
+  .eventos-lista th{background:rgba(255,255,255,0.05);padding:10px 14px;text-align:left;font-size:0.75rem;color:var(--cinza);text-transform:uppercase;letter-spacing:.4px;}
+  .eventos-lista td{padding:12px 14px;font-size:0.85rem;border-top:1px solid rgba(255,255,255,0.05);}
+  .badge-ativo{background:rgba(26,122,74,0.2);color:#4ADE80;border:1px solid rgba(74,222,128,0.3);padding:3px 10px;border-radius:20px;font-size:0.74rem;font-weight:600;}
+  .badge-inativo{background:rgba(100,100,100,0.2);color:var(--cinza);border:1px solid rgba(100,100,100,0.3);padding:3px 10px;border-radius:20px;font-size:0.74rem;}
+  .btn-encerrar{padding:5px 12px;background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.3);border-radius:7px;color:#ff6b6b;font-size:0.78rem;cursor:pointer;}
+  .btn-ativar{padding:5px 12px;background:rgba(26,122,74,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:7px;color:#4ADE80;font-size:0.78rem;cursor:pointer;}
+
+  /* ANALÍTICO */
+  .filtros{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
+  .filtro-select{
+    padding:9px 14px;background:rgba(255,255,255,0.07);
+    border:1.5px solid rgba(200,151,42,0.15);border-radius:9px;
+    color:var(--branco);font-size:0.85rem;cursor:pointer;
+  }
+  .filtro-select option{background:#163660;}
+  .btn-exportar{
+    margin-left:auto;padding:9px 18px;background:rgba(200,151,42,0.15);
+    border:1px solid rgba(200,151,42,0.3);border-radius:9px;
+    color:var(--dourado-claro);font-size:0.85rem;cursor:pointer;font-weight:600;
+  }
+  .tabela-wrap{background:var(--azul-card);border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius);overflow:auto;}
+  table{width:100%;border-collapse:collapse;}
+  th{background:rgba(255,255,255,0.05);padding:10px 14px;text-align:left;font-size:0.75rem;color:var(--cinza);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;}
+  td{padding:11px 14px;font-size:0.84rem;border-top:1px solid rgba(255,255,255,0.05);white-space:nowrap;}
+  tr:hover td{background:rgba(255,255,255,0.03);}
+  .badge-des{background:rgba(200,151,42,0.15);color:var(--dourado-claro);border:1px solid rgba(200,151,42,0.3);padding:3px 8px;border-radius:20px;font-size:0.72rem;}
+  .badge-dev{background:rgba(74,222,128,0.1);color:#4ADE80;border:1px solid rgba(74,222,128,0.25);padding:3px 8px;border-radius:20px;font-size:0.72rem;}
+  .badge-op{background:rgba(251,146,60,0.1);color:#FB923C;border:1px solid rgba(251,146,60,0.25);padding:3px 8px;border-radius:20px;font-size:0.72rem;}
+
+  .empty{text-align:center;padding:40px;color:var(--cinza);font-size:0.88rem;}
+  .spinner{width:28px;height:28px;border:2px solid rgba(200,151,42,0.2);border-top-color:var(--dourado);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loading-center{text-align:center;padding:40px;color:var(--cinza);font-size:.85rem;}
+  .seletor-evento{
+    display:flex;align-items:center;gap:10px;margin-bottom:20px;
+    background:var(--azul-card);border:1px solid rgba(200,151,42,0.15);
+    border-radius:10px;padding:14px 16px;
+  }
+  .seletor-evento label{font-size:0.8rem;color:var(--cinza);font-weight:600;text-transform:uppercase;white-space:nowrap;}
+  .seletor-evento select{
+    flex:1;background:transparent;border:none;color:var(--branco);font-size:0.9rem;cursor:pointer;outline:none;
+  }
+  .seletor-evento select option{background:#163660;}
+</style>
+</head>
+<body>
+
+<!-- CONFIG OVERLAY -->
+<div id="config-overlay">
+  <div class="config-box">
+    <h2>⚙️ Configuração do Admin</h2>
+    <p>Informe os dados de conexão com o Supabase.</p>
+    <input type="text" id="cfg-url" placeholder="URL do Supabase (https://xxx.supabase.co)" />
+    <input type="text" id="cfg-key" placeholder="Chave anon/public" />
+    <input type="text" id="cfg-quiz-url" placeholder="URL pública do questionário (index.html)" />
+    <button onclick="salvarConfig()">Salvar e Continuar</button>
+    <div class="config-error" id="cfg-erro"></div>
+  </div>
+</div>
+
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay" style="display:none">
+  <div class="login-box">
+    <div class="icon">🔐</div>
+    <h2>Área Administrativa</h2>
+    <p>Academia Mente Corporativa</p>
+    <input type="password" id="login-senha" placeholder="Digite a senha" onkeydown="if(event.key==='Enter')fazerLogin()" />
+    <button onclick="fazerLogin()">Entrar</button>
+    <div class="login-error" id="login-erro"></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">
+    <span class="icon">🧠</span>
+    <div>
+      <h1>Academia Mente Corporativa</h1>
+      <span>Painel Administrativo</span>
+    </div>
+  </div>
+  <div class="header-right"><span class="dot-live"></span>Ao vivo</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab ativa" onclick="trocarAba('eventos')">🗂️ Eventos</div>
+  <div class="tab" onclick="trocarAba('dashboard')">📊 Dashboard</div>
+  <div class="tab" onclick="trocarAba('analitico')">🔍 Analítico</div>
+</div>
+
+<!-- ABA: EVENTOS -->
+<div class="tab-content ativa" id="aba-eventos">
+  <div class="evento-form">
+    <h3>➕ Criar Novo Evento</h3>
+    <div class="campo">
+      <label>Nome do Evento</label>
+      <input type="text" id="novo-nome" placeholder="Ex: Expo Gestão e RH 2026" />
+    </div>
+    <div class="campo">
+      <label>Código do Evento</label>
+      <input type="text" id="novo-codigo" placeholder="Ex: EXPO-2026" />
+    </div>
+    <button class="btn-criar" onclick="criarEvento()">Criar Evento e Gerar QR Code</button>
+  </div>
+
+  <div class="qr-area" id="qr-area">
+    <h3>✅ Evento criado com sucesso!</h3>
+    <p>Compartilhe o QR Code abaixo para os participantes acessarem o questionário.</p>
+    <div id="qr-container"></div>
+    <div class="qr-link" id="qr-link-texto"></div>
+    <button class="btn-copiar" onclick="copiarLink()">📋 Copiar Link</button>
+  </div>
+
+  <div class="eventos-lista" id="eventos-lista">
+    <div class="loading-center"><div class="spinner"></div>Carregando eventos...</div>
+  </div>
+</div>
+
+<!-- ABA: DASHBOARD -->
+<div class="tab-content" id="aba-dashboard">
+  <div class="seletor-evento">
+    <label>Evento:</label>
+    <select id="sel-evento-dash" onchange="carregarDashboard()">
+      <option value="">Selecione um evento...</option>
+    </select>
+  </div>
+
+  <div id="dash-conteudo">
+    <div class="empty">Selecione um evento para ver os dados</div>
+  </div>
+</div>
+
+<!-- ABA: ANALÍTICO -->
+<div class="tab-content" id="aba-analitico">
+  <div class="seletor-evento">
+    <label>Evento:</label>
+    <select id="sel-evento-anal" onchange="carregarAnalitico()">
+      <option value="">Selecione um evento...</option>
+    </select>
+  </div>
+
+  <div class="filtros">
+    <select class="filtro-select" id="filtro-perfil" onchange="filtrarTabela()">
+      <option value="">Todos os perfis</option>
+      <option value="desenvolvida">🧠 Mente Desenvolvida</option>
+      <option value="em_desenvolvimento">📈 Em Desenvolvimento</option>
+      <option value="operacional">⚙️ Operacional</option>
+    </select>
+    <select class="filtro-select" id="filtro-tempo" onchange="filtrarTabela()">
+      <option value="">Todos os tempos</option>
+      <option value="rapido">Menos de 2 min</option>
+      <option value="medio">2 a 5 min</option>
+      <option value="lento">Acima de 5 min</option>
+    </select>
+    <button class="btn-exportar" onclick="exportarCSV()">⬇️ Exportar CSV</button>
+  </div>
+
+  <div class="tabela-wrap" id="tabela-wrap">
+    <div class="empty">Selecione um evento para ver os dados</div>
+  </div>
+</div>
+
+<script>
+const SENHA_ADMIN = 'Nexus2026@';
+let SUPABASE_URL = '', SUPABASE_KEY = '', QUIZ_URL = '';
+let todosEventos = [], todasRespostas = [];
+let abaAtual = 'eventos';
+let intervaloAtualizacao = null;
+
+// ===================== CONFIG =====================
+function salvarConfig() {
+  const url = document.getElementById('cfg-url').value.trim();
+  const key = document.getElementById('cfg-key').value.trim();
+  const qurl = document.getElementById('cfg-quiz-url').value.trim();
+  if (!url || !key) { document.getElementById('cfg-erro').textContent = 'URL e chave são obrigatórios.'; return; }
+  SUPABASE_URL = url.replace(/\/$/,'');
+  SUPABASE_KEY = key;
+  QUIZ_URL = qurl || window.location.href.replace('admin.html','index.html');
+  localStorage.setItem('amc_url', SUPABASE_URL);
+  localStorage.setItem('amc_key', SUPABASE_KEY);
+  localStorage.setItem('amc_quiz_url', QUIZ_URL);
+  document.getElementById('config-overlay').style.display = 'none';
+  document.getElementById('login-overlay').style.display = 'flex';
+}
+
+// ===================== LOGIN =====================
+function fazerLogin() {
+  const s = document.getElementById('login-senha').value;
+  if (s === SENHA_ADMIN) {
+    document.getElementById('login-overlay').style.display = 'none';
+    inicializarAdmin();
+  } else {
+    document.getElementById('login-erro').textContent = 'Senha incorreta.';
+  }
+}
+
+async function inicializarAdmin() {
+  await carregarEventos();
+  popularSelectors();
+  iniciarAtualizacaoAuto();
+}
+
+// ===================== API =====================
+async function api(path, opts = {}) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1${path}`, {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation', ...opts.headers },
+    method: opts.method || 'GET',
+    body: opts.body ? JSON.stringify(opts.body) : undefined
+  });
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+// ===================== EVENTOS =====================
+async function carregarEventos() {
+  try {
+    todosEventos = await api('/eventos?order=criado_em.desc') || [];
+    renderEventos();
+  } catch(e) { console.error(e); }
+}
+
+function renderEventos() {
+  const el = document.getElementById('eventos-lista');
+  if (!todosEventos.length) { el.innerHTML = '<div class="empty">Nenhum evento encontrado.</div>'; return; }
+  el.innerHTML = `<table>
+    <thead><tr><th>Nome</th><th>Código</th><th>Status</th><th>Criado em</th><th>Ações</th></tr></thead>
+    <tbody>
+    ${todosEventos.map(e => `<tr>
+      <td>${e.nome}</td>
+      <td style="color:var(--dourado-claro);font-family:monospace">${e.codigo}</td>
+      <td><span class="${e.ativo?'badge-ativo':'badge-inativo'}">${e.ativo?'Ativo':'Encerrado'}</span></td>
+      <td style="color:var(--cinza)">${new Date(e.criado_em).toLocaleDateString('pt-BR')}</td>
+      <td>
+        ${e.ativo
+          ? `<button class="btn-encerrar" onclick="encerrarEvento('${e.id}')">Encerrar</button>`
+          : `<button class="btn-ativar" onclick="ativarEvento('${e.id}')">Reativar</button>`
+        }
+      </td>
+    </tr>`).join('')}
+    </tbody></table>`;
+}
+
+async function criarEvento() {
+  const nome = document.getElementById('novo-nome').value.trim();
+  const codigo = document.getElementById('novo-codigo').value.trim().toUpperCase();
+  if (!nome || !codigo) { alert('Preencha o nome e o código do evento.'); return; }
+  try {
+    const resp = await api('/eventos', { method:'POST', body:{ nome, codigo, ativo:true } });
+    if (resp && resp[0]) {
+      const ev = resp[0];
+      const link = `${QUIZ_URL}?evento=${ev.codigo}`;
+      document.getElementById('qr-area').style.display = 'block';
+      document.getElementById('qr-container').innerHTML = '';
+      new QRCode(document.getElementById('qr-container'), { text: link, width:180, height:180, colorDark:'#0B1F3A', colorLight:'#ffffff' });
+      document.getElementById('qr-link-texto').textContent = link;
+      document.getElementById('novo-nome').value = '';
+      document.getElementById('novo-codigo').value = '';
+      await carregarEventos();
+      popularSelectors();
+    }
+  } catch(e) { alert('Erro ao criar evento: ' + e.message); }
+}
+
+function copiarLink() {
+  const txt = document.getElementById('qr-link-texto').textContent;
+  navigator.clipboard.writeText(txt).then(() => alert('Link copiado!'));
+}
+
+async function encerrarEvento(id) {
+  if (!confirm('Encerrar este evento?')) return;
+  await api(`/eventos?id=eq.${id}`, { method:'PATCH', body:{ ativo:false, encerrado_em:new Date().toISOString() } });
+  await carregarEventos();
+}
+
+async function ativarEvento(id) {
+  await api(`/eventos?id=eq.${id}`, { method:'PATCH', body:{ ativo:true, encerrado_em:null } });
+  await carregarEventos();
+}
+
+function popularSelectors() {
+  ['sel-evento-dash','sel-evento-anal'].forEach(selId => {
+    const sel = document.getElementById(selId);
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">Selecione um evento...</option>';
+    todosEventos.forEach(e => {
+      const opt = document.createElement('option');
+      opt.value = e.id; opt.textContent = `${e.nome} ${e.ativo?'🟢':'⚫'}`;
+      sel.appendChild(opt);
+    });
+    if (cur) sel.value = cur;
+  });
+}
+
+// ===================== DASHBOARD =====================
+function fmtTempo(s) {
+  if (!s && s !== 0) return '—';
+  const m = Math.floor(s/60), sec = s%60;
+  return m>0 ? `${m}m ${sec}s` : `${sec}s`;
+}
+
+async function carregarDashboard() {
+  const evId = document.getElementById('sel-evento-dash').value;
+  if (!evId) { document.getElementById('dash-conteudo').innerHTML = '<div class="empty">Selecione um evento.</div>'; return; }
+  document.getElementById('dash-conteudo').innerHTML = '<div class="loading-center"><div class="spinner"></div>Carregando...</div>';
+  try {
+    const resps = await api(`/respostas?evento_id=eq.${evId}&select=*`);
+    renderDashboard(resps || []);
+  } catch(e) { document.getElementById('dash-conteudo').innerHTML = '<div class="empty">Erro ao carregar dados.</div>'; }
+}
+
+function renderDashboard(resps) {
+  const total = resps.length;
+  if (!total) { document.getElementById('dash-conteudo').innerHTML = '<div class="empty">Nenhuma resposta ainda.</div>'; return; }
+
+  const contPerfil = { desenvolvida:0, em_desenvolvimento:0, operacional:0 };
+  let sumGestao=0, sumRelacional=0, sumEmocional=0;
+  let tempos = resps.map(r=>r.tempo_segundos).filter(t=>t>0);
+  resps.forEach(r => {
+    contPerfil[r.perfil]=(contPerfil[r.perfil]||0)+1;
+    sumGestao+=r.pontuacao_gestao||0;
+    sumRelacional+=r.pontuacao_relacional||0;
+    sumEmocional+=r.pontuacao_emocional||0;
+  });
+
+  const mediaGestao = (sumGestao/total).toFixed(1);
+  const mediaRelacional = (sumRelacional/total).toFixed(1);
+  const mediaEmocional = (sumEmocional/total).toFixed(1);
+  const tempoMedio = tempos.length ? Math.round(tempos.reduce((a,b)=>a+b,0)/tempos.length) : 0;
+  const tempoMin = tempos.length ? Math.min(...tempos) : 0;
+  const dist1 = tempos.filter(t=>t<120).length;
+  const dist2 = tempos.filter(t=>t>=120&&t<=300).length;
+  const dist3 = tempos.filter(t=>t>300).length;
+
+  document.getElementById('dash-conteudo').innerHTML = `
+    <div class="grid-metricas">
+      <div class="metrica-card">
+        <div class="metrica-label">Total de Respondentes</div>
+        <div class="metrica-valor" style="color:#4ADE80">${total}</div>
+        <div class="metrica-sub">diagnósticos realizados</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-label">Média Gestão Estratégica</div>
+        <div class="metrica-valor" style="color:#C084FC">${mediaGestao}<small style="font-size:.9rem;color:var(--cinza)">/12</small></div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-label">Média Intel. Relacional</div>
+        <div class="metrica-valor" style="color:#4ADE80">${mediaRelacional}<small style="font-size:.9rem;color:var(--cinza)">/3</small></div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-label">Média Saúde Emocional</div>
+        <div class="metrica-valor" style="color:#FB923C">${mediaEmocional}<small style="font-size:.9rem;color:var(--cinza)">/6</small></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-titulo">Distribuição de Perfis</div>
+      <div class="perfis-grid">
+        <div class="perfil-card perfil-desenvolvida">
+          <div class="p-icon">🧠</div>
+          <div class="p-nome" style="color:#E8B84B">Mente Desenvolvida</div>
+          <div class="p-num" style="color:#C8972A">${contPerfil.desenvolvida}</div>
+          <div class="p-pct">${total?Math.round((contPerfil.desenvolvida/total)*100):0}%</div>
+        </div>
+        <div class="perfil-card perfil-em_desenvolvimento">
+          <div class="p-icon">📈</div>
+          <div class="p-nome" style="color:#4ADE80">Em Desenvolvimento</div>
+          <div class="p-num" style="color:#4ADE80">${contPerfil.em_desenvolvimento}</div>
+          <div class="p-pct">${total?Math.round((contPerfil.em_desenvolvimento/total)*100):0}%</div>
+        </div>
+        <div class="perfil-card perfil-operacional">
+          <div class="p-icon">⚙️</div>
+          <div class="p-nome" style="color:#FB923C">Mente Operacional</div>
+          <div class="p-num" style="color:#FB923C">${contPerfil.operacional}</div>
+          <div class="p-pct">${total?Math.round((contPerfil.operacional/total)*100):0}%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-titulo">Média por Pilar</div>
+      <div class="barra-wrap">
+        <div class="barra-label"><span style="color:#C084FC">📊 Gestão Estratégica</span><span>${mediaGestao} / 12</span></div>
+        <div class="barra"><div class="barra-fill barra-gestao" style="width:${(mediaGestao/12)*100}%"></div></div>
+      </div>
+      <div class="barra-wrap">
+        <div class="barra-label"><span style="color:#4ADE80">🤝 Inteligência Relacional</span><span>${mediaRelacional} / 3</span></div>
+        <div class="barra"><div class="barra-fill barra-relacional" style="width:${(mediaRelacional/3)*100}%"></div></div>
+      </div>
+      <div class="barra-wrap">
+        <div class="barra-label"><span style="color:#FB923C">🧘 Saúde Emocional</span><span>${mediaEmocional} / 6</span></div>
+        <div class="barra"><div class="barra-fill barra-emocional" style="width:${(mediaEmocional/6)*100}%"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-titulo">Tempo de Resposta</div>
+      <div class="tempo-grid">
+        <div class="tempo-card"><div class="t-val">${fmtTempo(tempoMedio)}</div><div class="t-label">Tempo médio</div></div>
+        <div class="tempo-card"><div class="t-val">${fmtTempo(tempoMin)}</div><div class="t-label">Mais rápido</div></div>
+        <div class="tempo-card"><div class="t-val">${tempos.length}</div><div class="t-label">Com tempo</div></div>
+      </div>
+      <div class="dist-grid" style="margin-top:12px">
+        <div class="dist-card"><div class="d-val" style="color:#4ADE80">${dist1}</div><div class="d-label">Menos de 2 min</div></div>
+        <div class="dist-card"><div class="d-val" style="color:#E8B84B">${dist2}</div><div class="d-label">2 a 5 min</div></div>
+        <div class="dist-card"><div class="d-val" style="color:#FB923C">${dist3}</div><div class="d-label">Acima de 5 min</div></div>
+      </div>
+    </div>
+  `;
+}
+
+// ===================== ANALÍTICO =====================
+async function carregarAnalitico() {
+  const evId = document.getElementById('sel-evento-anal').value;
+  if (!evId) { document.getElementById('tabela-wrap').innerHTML = '<div class="empty">Selecione um evento.</div>'; return; }
+  document.getElementById('tabela-wrap').innerHTML = '<div class="loading-center"><div class="spinner"></div>Carregando...</div>';
+  try {
+    todasRespostas = await api(`/respostas?evento_id=eq.${evId}&order=finalizado_em.desc&select=*`) || [];
+    filtrarTabela();
+  } catch(e) { document.getElementById('tabela-wrap').innerHTML = '<div class="empty">Erro ao carregar.</div>'; }
+}
+
+function filtrarTabela() {
+  const filPerfil = document.getElementById('filtro-perfil').value;
+  const filTempo = document.getElementById('filtro-tempo').value;
+  let dados = [...todasRespostas];
+  if (filPerfil) dados = dados.filter(r => r.perfil === filPerfil);
+  if (filTempo === 'rapido') dados = dados.filter(r => r.tempo_segundos < 120);
+  if (filTempo === 'medio') dados = dados.filter(r => r.tempo_segundos >= 120 && r.tempo_segundos <= 300);
+  if (filTempo === 'lento') dados = dados.filter(r => r.tempo_segundos > 300);
+  renderTabela(dados);
+}
+
+const perfilBadge = {
+  desenvolvida: '<span class="badge-des">🧠 Desenvolvida</span>',
+  em_desenvolvimento: '<span class="badge-dev">📈 Em Desenvolvimento</span>',
+  operacional: '<span class="badge-op">⚙️ Operacional</span>'
+};
+
+function mascaraCpf(cpf) {
+  const c = String(cpf).replace(/\D/g,'').padStart(11,'0');
+  return `${c.slice(0,3)}.***.***-${c.slice(9)}`;
+}
+
+function renderTabela(dados) {
+  const wrap = document.getElementById('tabela-wrap');
+  if (!dados.length) { wrap.innerHTML = '<div class="empty">Nenhum resultado para os filtros selecionados.</div>'; return; }
+  wrap.innerHTML = `<table>
+    <thead><tr>
+      <th>#</th><th>Nome</th><th>CPF</th><th>Perfil</th>
+      <th>Total</th><th>Gestão</th><th>Relacional</th><th>Emocional</th>
+      <th>Tempo</th><th>Respondeu em</th>
+    </tr></thead>
+    <tbody>
+    ${dados.map((r,i)=>`<tr>
+      <td style="color:var(--cinza)">${i+1}</td>
+      <td style="font-weight:600">${r.nome}</td>
+      <td style="color:var(--cinza);font-family:monospace">${mascaraCpf(r.cpf)}</td>
+      <td>${perfilBadge[r.perfil]||r.perfil}</td>
+      <td style="font-weight:700;color:var(--dourado-claro)">${r.pontuacao_total}/21</td>
+      <td>${r.pontuacao_gestao}/12</td>
+      <td>${r.pontuacao_relacional}/3</td>
+      <td>${r.pontuacao_emocional}/6</td>
+      <td style="color:var(--dourado-claro)">${fmtTempo(r.tempo_segundos)}</td>
+      <td style="color:var(--cinza)">${new Date(r.finalizado_em).toLocaleString('pt-BR')}</td>
+    </tr>`).join('')}
+    </tbody></table>`;
+}
+
+function exportarCSV() {
+  if (!todasRespostas.length) { alert('Nenhum dado para exportar.'); return; }
+  const filPerfil = document.getElementById('filtro-perfil').value;
+  const filTempo = document.getElementById('filtro-tempo').value;
+  let dados = [...todasRespostas];
+  if (filPerfil) dados = dados.filter(r => r.perfil === filPerfil);
+  if (filTempo === 'rapido') dados = dados.filter(r => r.tempo_segundos < 120);
+  if (filTempo === 'medio') dados = dados.filter(r => r.tempo_segundos >= 120 && r.tempo_segundos <= 300);
+  if (filTempo === 'lento') dados = dados.filter(r => r.tempo_segundos > 300);
+
+  const header = ['Nome','CPF','Perfil','Pontuação Total','Gestão','Relacional','Emocional','Tempo (s)','Data/Hora'];
+  const rows = dados.map(r => [
+    r.nome, mascaraCpf(r.cpf), r.perfil, r.pontuacao_total,
+    r.pontuacao_gestao, r.pontuacao_relacional, r.pontuacao_emocional,
+    r.tempo_segundos, new Date(r.finalizado_em).toLocaleString('pt-BR')
+  ]);
+  const csv = [header, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `academia_mente_corporativa_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+// ===================== TABS =====================
+function trocarAba(aba) {
+  abaAtual = aba;
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('ativa', ['eventos','dashboard','analitico'][i]===aba));
+  document.querySelectorAll('.tab-content').forEach((c,i) => c.classList.toggle('ativa', ['aba-eventos','aba-dashboard','aba-analitico'][i]===`aba-${aba}`));
+  if (aba==='dashboard') carregarDashboard();
+  if (aba==='analitico') carregarAnalitico();
+}
+
+function iniciarAtualizacaoAuto() {
+  if (intervaloAtualizacao) clearInterval(intervaloAtualizacao);
+  intervaloAtualizacao = setInterval(() => {
+    if (abaAtual==='dashboard') carregarDashboard();
+    if (abaAtual==='analitico') carregarAnalitico();
+  }, 15000);
+}
+
+// ===================== INIT =====================
+window.onload = () => {
+  SUPABASE_URL = 'https://tixplejtfleigysummuq.supabase.co';
+  SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpeHBsZWp0ZmxlaWd5c3VtbXVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0NzU1NTIsImV4cCI6MjEwMDA1MTU1Mn0.QDNtOwzNqomQh2BeHqrSlb0qnCLcYHWw0PxBG1M-3WE';
+  QUIZ_URL = window.location.href.replace('admin.html', 'index.html');
+  document.getElementById('config-overlay').style.display = 'none';
+  document.getElementById('login-overlay').style.display = 'flex';
+};
+</script>
+</body>
+</html>
