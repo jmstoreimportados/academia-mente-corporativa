@@ -3,962 +3,1060 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Academia Mente Corporativa — Diagnóstico</title>
+<title>Academia Mente Corporativa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 :root {
-  --creme:    #F2F0EB;
-  --creme-2:  #E8E5DE;
-  --azul:     #0D2151;
-  --azul-2:   #163272;
-  --dourado:  #C8912A;
-  --ouro-cl:  #E0A93C;
-  --texto:    #1A1A2E;
-  --cinza:    #7A7A8A;
-  --cinza-cl: #C4C2BC;
-  --branco:   #FFFFFF;
-  --erro:     #B0330A;
+  --creme:   #F0EDE6;
+  --creme-2: #E2DDD4;
+  --creme-3: #D4CEC4;
+  --azul:    #0C1F4A;
+  --azul-2:  #142960;
+  --gold:    #B8821E;
+  --gold-lt: #D4A040;
+  --texto:   #18181E;
+  --medio:   #5A5A6A;
+  --suave:   #9A9698;
+  --branco:  #FFFFFF;
+  --erro:    #A02010;
 }
 
 html, body {
   background: var(--creme);
   color: var(--texto);
   font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
-/* ── TELAS ── */
-.tela { display: none; flex-direction: column; min-height: 100vh; max-width: 430px; margin: 0 auto; }
-.tela.ativa { display: flex; }
+.screen {
+  display: none;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.screen.on { display: flex; }
 
-/* ══════════════════════════════════════
-   TELA BOAS-VINDAS
-══════════════════════════════════════ */
-.hero {
+/* ─────────────────────────────────────────
+   TELA 1 — BOAS-VINDAS
+───────────────────────────────────────── */
+.intro-top {
   background: var(--azul);
-  padding: 52px 32px 40px;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  border: 1px solid rgba(200,145,42,0.18);
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -40px; left: -40px;
-  width: 140px; height: 140px;
-  border-radius: 50%;
-  border: 1px solid rgba(200,145,42,0.12);
+  padding: 44px 28px 36px;
 }
 
-.logo-svg-wrap {
-  width: 72px; height: 72px;
-  margin-bottom: 24px;
-}
-.logo-svg-wrap svg { width: 100%; height: 100%; }
-
-.hero-eyebrow {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--dourado);
-  margin-bottom: 10px;
-}
-.hero-titulo {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.6rem;
-  font-weight: 800;
-  line-height: 1.0;
-  color: var(--branco);
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: -0.5px;
-}
-.hero-titulo span { color: var(--ouro-cl); }
-.hero-sub {
-  font-size: 0.88rem;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.6;
-  margin-top: 10px;
-  max-width: 300px;
-}
-
-.corpo-inicio { padding: 28px 24px 32px; flex: 1; display: flex; flex-direction: column; }
-
-.contador-bloco {
+/* Logo — recriado fiel ao vídeo */
+.brand-mark {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 16px 18px;
-  background: var(--branco);
-  border-left: 3px solid var(--dourado);
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
-.contador-bloco .num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: var(--azul);
-  line-height: 1;
+.brand-mark svg {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
 }
-.contador-bloco .txt { font-size: 0.8rem; color: var(--cinza); line-height: 1.4; }
-.contador-bloco .txt strong { display: block; color: var(--texto); font-weight: 600; font-size: 0.85rem; }
-
-.sobre-titulo {
+.brand-text {}
+.brand-name {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--azul);
+  font-weight: 800;
+  color: var(--branco);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 10px;
+  line-height: 1.1;
 }
-.sobre-txt { font-size: 0.87rem; color: var(--cinza); line-height: 1.65; margin-bottom: 20px; }
-
-.pilares-row { display: flex; gap: 8px; margin-bottom: 28px; }
-.pilar-chip {
-  flex: 1;
-  padding: 10px 6px;
-  background: var(--branco);
-  border-top: 2px solid var(--azul);
-  text-align: center;
-}
-.pilar-chip .p-icon {
+.brand-name em {
   display: block;
-  width: 28px; height: 28px;
-  margin: 0 auto 6px;
+  color: var(--gold-lt);
+  font-style: normal;
 }
-.pilar-chip .p-nome { font-size: 0.68rem; font-weight: 600; color: var(--azul); line-height: 1.3; }
+.brand-sub {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
 
-.btn-cta {
-  display: block; width: 100%;
-  padding: 17px 24px;
+.intro-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--branco);
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+}
+.intro-headline strong {
+  display: block;
+  color: var(--gold-lt);
+  font-weight: 800;
+}
+
+.intro-line {
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 14px;
+}
+
+.intro-desc {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+  max-width: 300px;
+}
+
+.intro-body {
+  padding: 28px 24px 32px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pilares-bloco {
+  margin-bottom: 28px;
+}
+.pilares-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--suave);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.pilares-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.pilar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  background: var(--branco);
+}
+.pilar-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+  width: 18px;
+  flex-shrink: 0;
+}
+.pilar-info {}
+.pilar-nome {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--azul);
+  margin-bottom: 1px;
+}
+.pilar-desc-mini {
+  font-size: 0.72rem;
+  color: var(--suave);
+  line-height: 1.4;
+}
+
+.intro-aviso {
+  font-size: 0.78rem;
+  color: var(--suave);
+  line-height: 1.6;
+  padding: 14px 0;
+  border-top: 1px solid var(--creme-2);
+  margin-bottom: 20px;
+}
+
+.btn-principal {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
   background: var(--azul);
   color: var(--branco);
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  border: none; cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.2s;
-  margin-top: auto;
-}
-.btn-cta::after {
-  content: '';
-  position: absolute;
-  right: 20px; top: 50%;
-  transform: translateY(-50%);
-  width: 20px; height: 1px;
-  background: var(--dourado);
-}
-.btn-cta::before {
-  content: '';
-  position: absolute;
-  right: 20px; top: 50%;
-  transform: translateY(-50%) rotate(45deg);
-  width: 8px; height: 8px;
-  border-right: 1.5px solid var(--dourado);
-  border-top: 1.5px solid var(--dourado);
-}
-.btn-cta:active { background: var(--azul-2); }
-
-.evento-rodape {
+  border: none;
+  cursor: pointer;
   text-align: center;
-  font-size: 0.72rem;
-  color: var(--cinza-cl);
-  padding: 16px 24px;
+  margin-top: auto;
+  transition: background 0.15s;
+  position: relative;
+}
+.btn-principal:active { background: var(--azul-2); }
+
+.rodape-evento {
+  padding: 12px 24px;
+  font-size: 0.7rem;
+  color: var(--suave);
+  text-align: center;
+  letter-spacing: 0.3px;
   border-top: 1px solid var(--creme-2);
-  letter-spacing: 0.5px;
 }
 
-/* ══════════════════════════════════════
-   TELA CADASTRO
-══════════════════════════════════════ */
-.page-header {
+/* ─────────────────────────────────────────
+   TELA 2 — CADASTRO
+───────────────────────────────────────── */
+.page-top {
   background: var(--azul);
-  padding: 20px 24px 20px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
   gap: 14px;
 }
 .btn-back {
-  width: 36px; height: 36px;
-  background: rgba(255,255,255,0.1);
-  border: none; cursor: pointer;
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  cursor: pointer; flex-shrink: 0;
 }
-.btn-back svg { width: 16px; height: 16px; }
-.page-header-txt .eyebrow {
-  font-size: 0.68rem; font-weight: 600;
+.btn-back svg { width: 14px; height: 14px; }
+.page-title-wrap .step-label {
+  font-size: 0.65rem; font-weight: 600;
   letter-spacing: 2px; text-transform: uppercase;
-  color: var(--dourado); margin-bottom: 2px;
+  color: var(--gold); margin-bottom: 2px;
 }
-.page-header-txt h2 {
+.page-title-wrap h2 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.4rem; font-weight: 800;
+  font-size: 1.3rem; font-weight: 800;
   color: var(--branco); text-transform: uppercase;
 }
 
-.corpo-form { padding: 28px 24px; flex: 1; display: flex; flex-direction: column; }
-
-.aviso-box {
-  display: flex; gap: 12px; align-items: flex-start;
-  padding: 14px 16px;
-  background: var(--branco);
-  border-left: 3px solid var(--azul);
-  margin-bottom: 28px;
+.form-corpo {
+  padding: 28px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-.aviso-box svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; color: var(--azul); }
-.aviso-box p { font-size: 0.8rem; color: var(--cinza); line-height: 1.5; }
 
-.campo { margin-bottom: 20px; }
+.form-nota {
+  padding: 13px 16px;
+  background: var(--branco);
+  border-left: 2px solid var(--azul);
+  font-size: 0.78rem;
+  color: var(--medio);
+  line-height: 1.55;
+  margin-bottom: 26px;
+}
+
+.campo { margin-bottom: 18px; }
 .campo label {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
   color: var(--azul);
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   margin-bottom: 7px;
 }
 .campo input {
   width: 100%;
-  padding: 13px 16px;
+  padding: 13px 14px;
   background: var(--branco);
-  border: 1.5px solid var(--creme-2);
+  border: 1px solid var(--creme-2);
+  border-bottom: 2px solid var(--creme-3);
   color: var(--texto);
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
   border-radius: 0;
-  transition: border-color 0.2s;
   -webkit-appearance: none;
+  transition: border-color 0.15s;
 }
-.campo input:focus { outline: none; border-color: var(--azul); }
-.campo input.erro { border-color: var(--erro); }
-.msg-erro { font-size: 0.76rem; color: var(--erro); margin-top: 5px; font-weight: 500; }
-
-.privacidade {
-  display: flex; gap: 10px;
-  font-size: 0.76rem; color: var(--cinza);
-  line-height: 1.5; margin-top: 10px; margin-bottom: 28px;
+.campo input:focus {
+  outline: none;
+  border-bottom-color: var(--azul);
 }
-.privacidade svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; color: var(--cinza-cl); }
+.campo input.inv { border-bottom-color: var(--erro); }
+.campo-erro { font-size: 0.74rem; color: var(--erro); margin-top: 5px; font-weight: 500; }
 
-.btn-cta-disabled {
-  opacity: 0.35;
-  pointer-events: none;
-}
+.btn-desabilitado { opacity: 0.3; pointer-events: none; }
 
-/* ══════════════════════════════════════
-   TELA QUIZ
-══════════════════════════════════════ */
-.quiz-header {
+/* ─────────────────────────────────────────
+   TELA 3 — QUIZ
+───────────────────────────────────────── */
+.quiz-top {
   background: var(--azul);
-  padding: 16px 24px 20px;
+  padding: 18px 24px 16px;
 }
-.prog-row {
+.prog-nums {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+  font-weight: 500;
 }
-.prog-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); font-weight: 500; }
-.prog-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1rem; font-weight: 700;
-  color: var(--dourado);
-}
-.prog-track {
+.prog-nums span:last-child { color: var(--gold); font-weight: 600; }
+.prog-trilho {
   height: 2px;
-  background: rgba(255,255,255,0.12);
-  position: relative;
+  background: rgba(255,255,255,0.1);
 }
-.prog-fill {
+.prog-barra {
   height: 100%;
-  background: var(--dourado);
-  transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  background: var(--gold);
+  transition: width 0.4s cubic-bezier(.4,0,.2,1);
 }
 
-.corpo-quiz { padding: 24px; flex: 1; display: flex; flex-direction: column; }
-
-.pilar-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.7rem;
+.quiz-corpo {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.quiz-pilar {
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  color: var(--gold);
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--dourado);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  border-left: 2px solid var(--gold);
+  padding-left: 8px;
 }
-.pilar-label span {
-  display: inline-block;
-  width: 5px; height: 5px;
-  background: var(--dourado);
-  border-radius: 50%;
-}
-
-.pergunta-txt {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  line-height: 1.35;
+.quiz-pergunta {
+  font-size: 1.05rem;
+  font-weight: 600;
   color: var(--azul);
+  line-height: 1.5;
   margin-bottom: 22px;
-  text-transform: uppercase;
-  letter-spacing: 0.2px;
 }
-
-.alts { display: flex; flex-direction: column; gap: 8px; }
-.alt {
-  padding: 14px 16px;
+.quiz-alts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.alt-item {
+  width: 100%;
+  padding: 13px 16px;
   background: var(--branco);
-  border: 1.5px solid transparent;
-  border-left: 3px solid var(--creme-2);
-  font-size: 0.88rem;
+  border: 1px solid var(--creme-2);
   color: var(--texto);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
   text-align: left;
   cursor: pointer;
   line-height: 1.5;
-  transition: all 0.15s;
+  transition: border-color 0.12s, background 0.12s;
   -webkit-appearance: none;
-  width: 100%;
 }
-.alt:hover { border-left-color: var(--azul); background: #F8F7F4; }
-.alt.sel {
-  border-left-color: var(--dourado);
-  border-color: rgba(200,145,42,0.3);
-  background: #FBF6EE;
+.alt-item:hover {
+  border-color: var(--creme-3);
+  background: #F8F5EE;
+}
+.alt-item.marcada {
+  background: var(--branco);
+  border-color: var(--azul);
+  border-left: 3px solid var(--gold);
   color: var(--azul);
   font-weight: 500;
+  padding-left: 14px;
 }
 
 .quiz-nav {
-  display: flex; gap: 10px;
-  padding: 16px 24px 24px;
-  border-top: 1px solid var(--creme-2);
-  margin-top: auto;
+  display: flex;
+  gap: 8px;
+  padding: 14px 24px 24px;
 }
 .btn-voltar {
-  padding: 13px 18px;
+  padding: 13px 16px;
   background: transparent;
-  border: 1.5px solid var(--creme-2);
-  color: var(--cinza);
+  border: 1px solid var(--creme-2);
+  color: var(--suave);
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   cursor: pointer;
+  white-space: nowrap;
 }
-.btn-avancar {
+.btn-prox {
   flex: 1;
-  padding: 13px 18px;
+  padding: 13px;
   background: var(--azul);
   color: var(--branco);
   border: none;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   cursor: pointer;
-  opacity: 0.3;
+  opacity: 0.25;
   pointer-events: none;
-  transition: opacity 0.2s, background 0.2s;
+  transition: opacity 0.15s;
 }
-.btn-avancar.ok { opacity: 1; pointer-events: all; }
-.btn-avancar:active { background: var(--azul-2); }
+.btn-prox.pronto { opacity: 1; pointer-events: all; }
 
-/* ══════════════════════════════════════
-   TELA RESULTADO
-══════════════════════════════════════ */
-.resultado-hero {
+/* ─────────────────────────────────────────
+   TELA 4 — RESULTADO
+───────────────────────────────────────── */
+.resultado-top {
   background: var(--azul);
-  padding: 40px 28px 32px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  padding: 36px 28px 30px;
 }
-.resultado-hero::before {
-  content: '';
-  position: absolute;
-  top: -50px; left: 50%;
-  transform: translateX(-50%);
-  width: 260px; height: 260px;
-  border-radius: 50%;
-  border: 1px solid rgba(200,145,42,0.15);
-}
-.res-medalha {
-  width: 72px; height: 72px;
-  background: rgba(200,145,42,0.12);
-  border: 1px solid rgba(200,145,42,0.4);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 18px;
-}
-.res-medalha svg { width: 36px; height: 36px; }
-.res-eyebrow {
-  font-size: 0.68rem;
+.res-tag {
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 2.5px;
+  color: var(--gold);
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--dourado);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
-.res-perfil {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.9rem;
-  font-weight: 800;
-  color: var(--branco);
-  text-transform: uppercase;
-  line-height: 1.1;
-  margin-bottom: 12px;
-}
-.res-desc {
-  font-size: 0.84rem;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.65;
-  max-width: 320px;
-  margin: 0 auto;
-}
-
-.corpo-resultado { padding: 24px; flex: 1; }
-
-.pontuacao-geral {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: var(--branco);
-  border-left: 3px solid var(--dourado);
-  margin-bottom: 20px;
-}
-.pg-label { font-size: 0.75rem; color: var(--cinza); font-weight: 500; }
-.pg-valor {
+.res-nome {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 2rem;
   font-weight: 800;
+  color: var(--branco);
+  text-transform: uppercase;
+  line-height: 1.0;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+.res-linha {
+  width: 32px; height: 2px;
+  background: var(--gold);
+  margin-bottom: 14px;
+}
+.res-descricao {
+  font-size: 0.84rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+}
+
+.resultado-corpo {
+  padding: 24px;
+  flex: 1;
+}
+
+.pontuacao-box {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 16px 18px;
+  background: var(--branco);
+  margin-bottom: 20px;
+}
+.pts-valor {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
   color: var(--azul);
   line-height: 1;
 }
-.pg-valor span { font-size: 1rem; color: var(--cinza-cl); font-weight: 400; }
+.pts-max {
+  font-size: 1rem;
+  color: var(--suave);
+}
+.pts-label {
+  font-size: 0.72rem;
+  color: var(--suave);
+  margin-left: auto;
+  text-align: right;
+  line-height: 1.4;
+}
 
-.pilares-section { margin-bottom: 20px; }
-.pilares-titulo {
-  font-size: 0.68rem;
+.pilares-resultado {
+  margin-bottom: 20px;
+}
+.pr-titulo {
+  font-size: 0.65rem;
   font-weight: 600;
+  color: var(--suave);
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--cinza);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
-.pilar-item { margin-bottom: 14px; }
-.pilar-item-top {
+.pr-item {
+  padding: 14px 16px;
+  background: var(--branco);
+  margin-bottom: 1px;
+}
+.pr-item-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
-.pilar-item-nome { font-size: 0.82rem; font-weight: 600; color: var(--azul); }
-.pilar-item-pts { font-size: 0.78rem; color: var(--cinza); }
-.barra-track {
-  height: 3px;
+.pr-item-nome {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--azul);
+}
+.pr-item-pts {
+  font-size: 0.75rem;
+  color: var(--suave);
+  font-weight: 500;
+}
+.pr-trilho {
+  height: 2px;
   background: var(--creme-2);
 }
-.barra-fill-res {
+.pr-fill {
   height: 100%;
-  background: var(--dourado);
-  transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  background: var(--gold);
+  transition: width 1.4s cubic-bezier(.4,0,.2,1);
 }
 
-.cta-box {
-  padding: 18px 20px;
+.cta-resultado {
+  padding: 18px;
   background: var(--azul);
-  margin-bottom: 0;
 }
-.cta-box .cta-titulo {
+.cta-r-titulo {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: var(--dourado);
+  color: var(--gold);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   margin-bottom: 6px;
 }
-.cta-box .cta-txt { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+.cta-r-txt {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+}
 
-/* ══════════════════════════════════════
-   TELA ESPERA
-══════════════════════════════════════ */
-.espera-wrap {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 40px 32px; text-align: center;
+/* ─────────────────────────────────────────
+   TELA 5 — ESPERA
+───────────────────────────────────────── */
+.espera-corpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  text-align: center;
 }
 .espera-check {
-  width: 64px; height: 64px;
+  width: 56px; height: 56px;
   background: var(--azul);
-  border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 24px;
+  margin: 0 auto 22px;
 }
-.espera-check svg { width: 28px; height: 28px; }
+.espera-check svg { width: 24px; height: 24px; }
 .espera-titulo {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: var(--azul);
   text-transform: uppercase;
   margin-bottom: 8px;
 }
-.espera-sub { font-size: 0.85rem; color: var(--cinza); line-height: 1.6; margin-bottom: 32px; max-width: 280px; }
-.espera-counter-wrap {
-  padding: 20px 40px;
+.espera-txt {
+  font-size: 0.84rem;
+  color: var(--medio);
+  line-height: 1.65;
+  max-width: 270px;
+}
+
+/* Contador — aparece só se >100 */
+.espera-contador {
+  width: 100%;
+  padding: 20px;
   background: var(--branco);
   border-top: 2px solid var(--azul);
   text-align: center;
+  display: none;
 }
-.espera-num {
+.espera-contador.visivel { display: block; }
+.ec-num {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: 800;
   color: var(--azul);
   line-height: 1;
 }
-.espera-lbl { font-size: 0.75rem; color: var(--cinza); margin-top: 4px; letter-spacing: 0.5px; }
+.ec-lbl {
+  font-size: 0.72rem;
+  color: var(--suave);
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
 
 /* LOADING */
-.loading-wrap { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
+.loading-estado {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+}
 .loader {
-  width: 32px; height: 32px;
+  width: 28px; height: 28px;
   border: 2px solid var(--creme-2);
   border-top-color: var(--azul);
   border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+  animation: girar 0.65s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-txt { font-size: 0.82rem; color: var(--cinza); }
+@keyframes girar { to { transform: rotate(360deg); } }
+.loader-txt { font-size: 0.8rem; color: var(--suave); }
 </style>
 </head>
 <body>
 
 <!-- ══ TELA: INÍCIO ══ -->
-<div class="tela ativa" id="tela-inicio">
-  <div class="hero">
-    <div class="logo-svg-wrap">
-      <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="36" cy="36" r="34" stroke="#C8912A" stroke-width="1.2"/>
-        <path d="M26 22 C20 22 16 27 16 33 C16 40 22 44 28 46 L36 50 L44 46 C50 44 56 40 56 33 C56 27 52 22 46 22 C42 22 39 24 36 27 C33 24 30 22 26 22Z" fill="#0D2151"/>
-        <line x1="28" y1="28" x2="36" y2="36" stroke="#C8912A" stroke-width="0.8"/>
-        <line x1="36" y1="36" x2="44" y2="28" stroke="#C8912A" stroke-width="0.8"/>
-        <line x1="24" y1="34" x2="36" y2="36" stroke="#C8912A" stroke-width="0.8"/>
-        <line x1="36" y1="36" x2="48" y2="34" stroke="#C8912A" stroke-width="0.8"/>
-        <line x1="30" y1="42" x2="36" y2="36" stroke="#C8912A" stroke-width="0.8"/>
-        <line x1="36" y1="36" x2="42" y2="42" stroke="#C8912A" stroke-width="0.8"/>
-        <circle cx="28" cy="28" r="1.5" fill="#C8912A"/>
-        <circle cx="44" cy="28" r="1.5" fill="#C8912A"/>
-        <circle cx="24" cy="34" r="1.5" fill="#C8912A"/>
-        <circle cx="48" cy="34" r="1.5" fill="#C8912A"/>
-        <circle cx="30" cy="42" r="1.5" fill="#C8912A"/>
-        <circle cx="42" cy="42" r="1.5" fill="#C8912A"/>
-        <circle cx="36" cy="36" r="2.5" fill="#C8912A"/>
-        <rect x="30" y="52" width="2.5" height="10" rx="0" fill="#C8912A"/>
-        <rect x="34" y="50" width="2.5" height="12" rx="0" fill="#C8912A"/>
-        <rect x="38" y="53" width="2.5" height="9" rx="0" fill="#C8912A"/>
-        <rect x="42" y="55" width="2.5" height="7" rx="0" fill="#C8912A"/>
+<div class="screen on" id="tela-inicio">
+  <div class="intro-top">
+    <div class="brand-mark">
+      <!-- Logo SVG fiel ao vídeo: silhueta de rosto/cérebro com arco dourado e barras de gráfico -->
+      <svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="27" cy="27" r="26" stroke="#B8821E" stroke-width="1"/>
+        <!-- arco dourado -->
+        <path d="M10 32 Q27 8 44 32" stroke="#B8821E" stroke-width="1.5" fill="none"/>
+        <!-- silhueta cerebro/rosto -->
+        <path d="M18 28 C16 22 18 16 22 14 C25 12 28 13 30 16 C32 13 35 12 38 14 C42 16 44 22 42 28 C41 31 39 33 37 34 L27 38 L17 34 C15 33 18 30 18 28Z" fill="#0C1F4A"/>
+        <!-- rede neural interna -->
+        <circle cx="23" cy="22" r="1.2" fill="#B8821E"/>
+        <circle cx="28" cy="19" r="1.2" fill="#B8821E"/>
+        <circle cx="33" cy="22" r="1.2" fill="#B8821E"/>
+        <circle cx="26" cy="27" r="1.2" fill="#B8821E"/>
+        <circle cx="32" cy="27" r="1.2" fill="#B8821E"/>
+        <line x1="23" y1="22" x2="28" y2="19" stroke="#B8821E" stroke-width="0.7" opacity="0.7"/>
+        <line x1="28" y1="19" x2="33" y2="22" stroke="#B8821E" stroke-width="0.7" opacity="0.7"/>
+        <line x1="23" y1="22" x2="26" y2="27" stroke="#B8821E" stroke-width="0.7" opacity="0.7"/>
+        <line x1="33" y1="22" x2="32" y2="27" stroke="#B8821E" stroke-width="0.7" opacity="0.7"/>
+        <line x1="26" y1="27" x2="32" y2="27" stroke="#B8821E" stroke-width="0.7" opacity="0.7"/>
+        <!-- barras de gráfico -->
+        <rect x="20" y="40" width="3" height="7" fill="#B8821E"/>
+        <rect x="24.5" y="37" width="3" height="10" fill="#B8821E"/>
+        <rect x="29" y="41" width="3" height="6" fill="#B8821E"/>
+        <rect x="33.5" y="43" width="3" height="4" fill="#B8821E" opacity="0.5"/>
       </svg>
+      <div class="brand-text">
+        <div class="brand-name">Mente<em>Corporativa</em></div>
+        <div class="brand-sub">Academia</div>
+      </div>
     </div>
-    <div class="hero-eyebrow">Diagnóstico de Liderança</div>
-    <h1 class="hero-titulo">Mente<br><span>Corporativa</span></h1>
-    <p class="hero-sub">Descubra em qual estágio está sua mentalidade estratégica de liderança.</p>
+
+    <h1 class="intro-headline">
+      Qual é<br>sua<br><strong>mentalidade?</strong>
+    </h1>
+    <div class="intro-line"></div>
+    <p class="intro-desc">Sete questões. Resultado imediato. Descubra como você lidera sob pressão, constrói relações e cuida do seu equilíbrio.</p>
   </div>
 
-  <div class="corpo-inicio">
-    <div class="contador-bloco">
-      <div class="num" id="contador-num">—</div>
-      <div class="txt">
-        <strong>diagnósticos realizados</strong>
-        neste evento
+  <div class="intro-body">
+    <div class="pilares-bloco">
+      <div class="pilares-label">Três pilares avaliados</div>
+      <div class="pilares-lista">
+        <div class="pilar-row">
+          <div class="pilar-num">01</div>
+          <div class="pilar-info">
+            <div class="pilar-nome">Gestão Estratégica</div>
+            <div class="pilar-desc-mini">Visão analítica, KPIs, tomada de decisão e alinhamento de processos</div>
+          </div>
+        </div>
+        <div class="pilar-row">
+          <div class="pilar-num">02</div>
+          <div class="pilar-info">
+            <div class="pilar-nome">Inteligência Relacional</div>
+            <div class="pilar-desc-mini">Gestão de equipes, cultura organizacional e liderança ética</div>
+          </div>
+        </div>
+        <div class="pilar-row">
+          <div class="pilar-num">03</div>
+          <div class="pilar-info">
+            <div class="pilar-nome">Saúde Emocional</div>
+            <div class="pilar-desc-mini">Resiliência, mindfulness e sustentabilidade da performance</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="sobre-titulo">Sobre o diagnóstico</div>
-    <p class="sobre-txt">A Mente Corporativa é a mentalidade estratégica voltada para resultados, eficiência e adaptabilidade. Este diagnóstico avalia você em três pilares fundamentais.</p>
+    <p class="intro-aviso">Suas respostas são individuais e confidenciais. Os resultados serão apresentados de forma agregada ao final do evento.</p>
 
-    <div class="pilares-row">
-      <div class="pilar-chip">
-        <svg class="p-icon" viewBox="0 0 28 28" fill="none">
-          <rect x="4" y="16" width="4" height="8" fill="#0D2151"/>
-          <rect x="10" y="10" width="4" height="14" fill="#0D2151"/>
-          <rect x="16" y="6" width="4" height="18" fill="#C8912A"/>
-          <rect x="22" y="12" width="4" height="12" fill="#0D2151" opacity=".4"/>
-        </svg>
-        <div class="p-nome">Gestão Estratégica</div>
-      </div>
-      <div class="pilar-chip">
-        <svg class="p-icon" viewBox="0 0 28 28" fill="none">
-          <circle cx="10" cy="11" r="5" fill="#0D2151"/>
-          <circle cx="19" cy="11" r="5" fill="#0D2151" opacity=".5"/>
-          <path d="M4 22 C4 18 7 16 10 16 C13 16 16 18 16 22" fill="#0D2151"/>
-          <path d="M12 20 C13 17 16 16 19 16 C22 16 25 18 25 22" fill="#C8912A" opacity=".7"/>
-        </svg>
-        <div class="p-nome">Intel. Relacional</div>
-      </div>
-      <div class="pilar-chip">
-        <svg class="p-icon" viewBox="0 0 28 28" fill="none">
-          <circle cx="14" cy="13" r="7" stroke="#0D2151" stroke-width="1.5" fill="none"/>
-          <path d="M14 6 L14 4 M14 22 L14 24 M6 13 L4 13 M22 13 L24 13" stroke="#C8912A" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="14" cy="13" r="2.5" fill="#C8912A"/>
-        </svg>
-        <div class="p-nome">Saúde Emocional</div>
-      </div>
-    </div>
-
-    <button class="btn-cta" onclick="irParaCadastro()">Iniciar diagnóstico</button>
+    <button class="btn-principal" onclick="irCadastro()">Iniciar diagnóstico</button>
   </div>
-  <div class="evento-rodape" id="label-evento"></div>
+  <div class="rodape-evento" id="label-evento"></div>
 </div>
 
 <!-- ══ TELA: CADASTRO ══ -->
-<div class="tela" id="tela-cadastro">
-  <div class="page-header">
-    <button class="btn-back" onclick="mostrarTela('tela-inicio')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.8">
-        <path d="M10 3 L5 8 L10 13"/>
+<div class="screen" id="tela-cadastro">
+  <div class="page-top">
+    <button class="btn-back" onclick="irTela('tela-inicio')">
+      <svg viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round">
+        <path d="M9 2 L4 7 L9 12"/>
       </svg>
     </button>
-    <div class="page-header-txt">
-      <div class="eyebrow">Etapa 1 de 1</div>
-      <h2>Identificação</h2>
+    <div class="page-title-wrap">
+      <div class="step-label">Identificação</div>
+      <h2>Seus dados</h2>
     </div>
   </div>
 
-  <div class="corpo-form">
-    <div class="aviso-box">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="8" cy="8" r="6.5"/>
-        <path d="M8 7.5 L8 11 M8 5.5 L8 5.6" stroke-linecap="round"/>
-      </svg>
-      <p>Seus dados são utilizados exclusivamente para personalizar seu resultado e garantir a unicidade do diagnóstico.</p>
+  <div class="form-corpo">
+    <div class="form-nota">
+      Precisamos do seu nome e CPF para garantir que cada diagnóstico seja único e para personalizar seu resultado.
     </div>
 
     <div class="campo">
       <label>Nome completo</label>
-      <input type="text" id="campo-nome" placeholder="Digite seu nome completo" oninput="validarForm()" autocomplete="name" />
-      <div class="msg-erro" id="erro-nome"></div>
+      <input type="text" id="campo-nome" placeholder="Como você se chama?" oninput="validar()" autocomplete="name" />
+      <div class="campo-erro" id="erro-nome"></div>
     </div>
 
     <div class="campo">
       <label>CPF</label>
       <input type="text" id="campo-cpf" placeholder="000.000.000-00" maxlength="14"
-             oninput="formatarCPF(this);validarForm()" inputmode="numeric" />
-      <div class="msg-erro" id="erro-cpf"></div>
+             oninput="fmtCPF(this);validar()" inputmode="numeric" />
+      <div class="campo-erro" id="erro-cpf"></div>
     </div>
 
-    <div class="privacidade">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="3" y="7" width="10" height="8" rx="1"/>
-        <path d="M5.5 7 V5 A2.5 2.5 0 0 1 10.5 5 V7"/>
-      </svg>
-      <span>Seus dados não serão compartilhados com terceiros.</span>
-    </div>
-
-    <button class="btn-cta btn-cta-disabled" id="btn-iniciar" onclick="iniciarQuestionario()">Começar questionário</button>
+    <button class="btn-principal btn-desabilitado" id="btn-comecar" onclick="comecar()" style="margin-top:auto">
+      Começar questionário
+    </button>
   </div>
 </div>
 
 <!-- ══ TELA: QUIZ ══ -->
-<div class="tela" id="tela-quiz">
-  <div class="quiz-header">
-    <div class="prog-row">
-      <span class="prog-label" id="prog-label">Pergunta 1 de 7</span>
-      <span class="prog-num" id="prog-pct">0%</span>
+<div class="screen" id="tela-quiz">
+  <div class="quiz-top">
+    <div class="prog-nums">
+      <span id="prog-txt">1 de 7</span>
+      <span id="prog-pct">14%</span>
     </div>
-    <div class="prog-track">
-      <div class="prog-fill" id="prog-fill" style="width:0%"></div>
+    <div class="prog-trilho">
+      <div class="prog-barra" id="prog-barra" style="width:0%"></div>
     </div>
   </div>
 
-  <div class="corpo-quiz" id="corpo-quiz">
-    <div class="loading-wrap"><div class="loader"></div><div class="loading-txt">Carregando...</div></div>
+  <div class="quiz-corpo" id="quiz-corpo">
+    <div class="loading-estado">
+      <div class="loader"></div>
+      <div class="loader-txt">Carregando...</div>
+    </div>
   </div>
 
   <div class="quiz-nav">
-    <button class="btn-voltar" id="btn-voltar" onclick="voltarPerg()" style="display:none">← Voltar</button>
-    <button class="btn-avancar" id="btn-avancar" onclick="avancarPerg()">Próxima</button>
+    <button class="btn-voltar" id="btn-voltar" onclick="voltar()" style="display:none">← Voltar</button>
+    <button class="btn-prox" id="btn-prox" onclick="avancar()">Próxima</button>
   </div>
 </div>
 
 <!-- ══ TELA: RESULTADO ══ -->
-<div class="tela" id="tela-resultado">
-  <div class="resultado-hero">
-    <div class="res-medalha">
-      <svg id="res-icon-svg" viewBox="0 0 36 36" fill="none">
-        <path d="M18 6 L20 14 L28 14 L22 19 L24 28 L18 23 L12 28 L14 19 L8 14 L16 14Z" fill="#C8912A"/>
-      </svg>
-    </div>
-    <div class="res-eyebrow">Seu perfil</div>
-    <div class="res-perfil" id="res-perfil">—</div>
-    <div class="res-desc" id="res-desc"></div>
+<div class="screen" id="tela-resultado">
+  <div class="resultado-top">
+    <div class="res-tag">Seu perfil</div>
+    <div class="res-nome" id="res-nome">—</div>
+    <div class="res-linha"></div>
+    <div class="res-descricao" id="res-desc"></div>
   </div>
 
-  <div class="corpo-resultado">
-    <div class="pontuacao-geral">
-      <div class="pg-label">Pontuação geral</div>
-      <div class="pg-valor" id="res-total">—<span> / 21</span></div>
+  <div class="resultado-corpo">
+    <div class="pontuacao-box">
+      <div class="pts-valor" id="res-total">—</div>
+      <div class="pts-max">/ 21</div>
+      <div class="pts-label">pontuação<br>total</div>
     </div>
 
-    <div class="pilares-section">
-      <div class="pilares-titulo">Resultado por pilar</div>
-      <div class="pilar-item">
-        <div class="pilar-item-top">
-          <span class="pilar-item-nome">Gestão Estratégica</span>
-          <span class="pilar-item-pts" id="pts-gestao">— / 12</span>
+    <div class="pilares-resultado">
+      <div class="pr-titulo">Resultado por pilar</div>
+
+      <div class="pr-item">
+        <div class="pr-item-top">
+          <span class="pr-item-nome">Gestão Estratégica</span>
+          <span class="pr-item-pts" id="pts-g">— / 12</span>
         </div>
-        <div class="barra-track"><div class="barra-fill-res" id="bar-gestao" style="width:0%"></div></div>
+        <div class="pr-trilho"><div class="pr-fill" id="bar-g" style="width:0%"></div></div>
       </div>
-      <div class="pilar-item">
-        <div class="pilar-item-top">
-          <span class="pilar-item-nome">Inteligência Relacional</span>
-          <span class="pilar-item-pts" id="pts-relacional">— / 3</span>
+
+      <div class="pr-item">
+        <div class="pr-item-top">
+          <span class="pr-item-nome">Inteligência Relacional</span>
+          <span class="pr-item-pts" id="pts-r">— / 3</span>
         </div>
-        <div class="barra-track"><div class="barra-fill-res" id="bar-relacional" style="width:0%"></div></div>
+        <div class="pr-trilho"><div class="pr-fill" id="bar-r" style="width:0%"></div></div>
       </div>
-      <div class="pilar-item">
-        <div class="pilar-item-top">
-          <span class="pilar-item-nome">Saúde Emocional</span>
-          <span class="pilar-item-pts" id="pts-emocional">— / 6</span>
+
+      <div class="pr-item">
+        <div class="pr-item-top">
+          <span class="pr-item-nome">Saúde Emocional</span>
+          <span class="pr-item-pts" id="pts-e">— / 6</span>
         </div>
-        <div class="barra-track"><div class="barra-fill-res" id="bar-emocional" style="width:0%"></div></div>
+        <div class="pr-trilho"><div class="pr-fill" id="bar-e" style="width:0%"></div></div>
       </div>
     </div>
 
-    <div class="cta-box">
-      <div class="cta-titulo">Próximo passo</div>
-      <div class="cta-txt" id="res-cta"></div>
+    <div class="cta-resultado">
+      <div class="cta-r-titulo">Academia Mente Corporativa</div>
+      <div class="cta-r-txt" id="res-cta"></div>
     </div>
   </div>
 </div>
 
 <!-- ══ TELA: ESPERA ══ -->
-<div class="tela" id="tela-espera">
-  <div class="espera-wrap">
+<div class="screen" id="tela-espera">
+  <div class="espera-corpo">
     <div class="espera-check">
-      <svg viewBox="0 0 28 28" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
-        <path d="M6 14 L12 20 L22 9"/>
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 12 9 17 20 7"/>
       </svg>
     </div>
-    <div class="espera-titulo">Concluído!</div>
-    <p class="espera-sub">Aguarde a apresentação dos resultados coletivos no evento.</p>
+    <div class="espera-titulo">Diagnóstico concluído</div>
+    <p class="espera-txt">Aguarde. Os resultados coletivos serão apresentados ao final do evento.</p>
   </div>
-  <div class="espera-counter-wrap">
-    <div class="espera-num" id="espera-num">—</div>
-    <div class="espera-lbl">diagnósticos realizados neste evento</div>
+
+  <div class="espera-contador" id="espera-contador">
+    <div class="ec-num" id="espera-num">—</div>
+    <div class="ec-lbl">diagnósticos realizados neste evento</div>
   </div>
 </div>
 
 <script>
-const SUPABASE_URL = 'https://tixplejtfleigysummuq.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpeHBsZWp0ZmxlaWd5c3VtbXVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0NzU1NTIsImV4cCI6MjEwMDA1MTU1Mn0.QDNtOwzNqomQh2BeHqrSlb0qnCLcYHWw0PxBG1M-3WE';
+const SB_URL = 'https://tixplejtfleigysummuq.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpeHBsZWp0ZmxlaWd5c3VtbXVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0NzU1NTIsImV4cCI6MjEwMDA1MTU1Mn0.QDNtOwzNqomQh2BeHqrSlb0qnCLcYHWw0PxBG1M-3WE';
+const MINIMO_CONTADOR = 100;
 
 let EVENTO_ID = null, EVENTO_NOME = '';
-let perguntas = [], respostasUsuario = {}, perguntaAtual = 0;
-let iniciouEm = null, nomeUsuario = '', cpfUsuario = '';
+let perguntas = [], respostas = {}, atual = 0;
+let inicioEm = null, nomeUser = '', cpfUser = '';
 
-async function api(path, opts = {}) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1${path}`, {
-    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json', 'Prefer': 'return=representation', ...opts.headers },
+async function req(path, opts = {}) {
+  const r = await fetch(`${SB_URL}/rest/v1${path}`, {
+    headers: {
+      'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`,
+      'Content-Type': 'application/json', 'Prefer': 'return=representation',
+      ...opts.headers
+    },
     method: opts.method || 'GET',
     body: opts.body ? JSON.stringify(opts.body) : undefined
   });
-  const t = await res.text(); return t ? JSON.parse(t) : null;
+  const t = await r.text();
+  return t ? JSON.parse(t) : null;
 }
 
 async function init() {
   try {
-    const evs = await api('/eventos?ativo=eq.true&order=criado_em.desc&limit=1');
-    if (evs && evs.length) { EVENTO_ID = evs[0].id; EVENTO_NOME = evs[0].nome; document.getElementById('label-evento').textContent = EVENTO_NOME; }
+    const evs = await req('/eventos?ativo=eq.true&order=criado_em.desc&limit=1');
+    if (evs && evs.length) {
+      EVENTO_ID = evs[0].id;
+      EVENTO_NOME = evs[0].nome;
+      document.getElementById('label-evento').textContent = EVENTO_NOME;
+    }
   } catch(e) {}
-  atualizarContador();
-  setInterval(atualizarContador, 10000);
 }
 
-async function atualizarContador() {
+async function atualizarContadorEspera() {
   if (!EVENTO_ID) return;
   try {
-    const d = await api(`/respostas?evento_id=eq.${EVENTO_ID}&select=id`);
+    const d = await req(`/respostas?evento_id=eq.${EVENTO_ID}&select=id`);
     const n = d ? d.length : 0;
-    document.getElementById('contador-num').textContent = n;
-    const el = document.getElementById('espera-num'); if (el) el.textContent = n;
+    const el = document.getElementById('espera-contador');
+    if (n >= MINIMO_CONTADOR) {
+      document.getElementById('espera-num').textContent = n;
+      el.classList.add('visivel');
+    } else {
+      el.classList.remove('visivel');
+    }
   } catch(e) {}
 }
 
-function mostrarTela(id) {
-  document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
-  document.getElementById(id).classList.add('ativa');
+function irTela(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
   window.scrollTo(0, 0);
 }
 
-function irParaCadastro() { mostrarTela('tela-cadastro'); }
+function irCadastro() { irTela('tela-cadastro'); }
 
-function formatarCPF(input) {
-  let v = input.value.replace(/\D/g,'').substring(0,11);
+function fmtCPF(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,11);
   v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
-  input.value = v;
+  el.value = v;
 }
 
-function cpfValido(cpf) {
-  cpf = cpf.replace(/\D/g,'');
-  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+function cpfOk(c) {
+  c = c.replace(/\D/g,'');
+  if (c.length !== 11 || /^(\d)\1+$/.test(c)) return false;
   let s=0,r;
-  for(let i=0;i<9;i++) s+=parseInt(cpf[i])*(10-i);
-  r=(s*10)%11; if(r===10||r===11)r=0; if(r!==parseInt(cpf[9]))return false;
-  s=0; for(let i=0;i<10;i++) s+=parseInt(cpf[i])*(11-i);
-  r=(s*10)%11; if(r===10||r===11)r=0; return r===parseInt(cpf[10]);
+  for(let i=0;i<9;i++) s+=+c[i]*(10-i);
+  r=(s*10)%11; if(r>9)r=0; if(r!==+c[9]) return false;
+  s=0; for(let i=0;i<10;i++) s+=+c[i]*(11-i);
+  r=(s*10)%11; if(r>9)r=0; return r===+c[10];
 }
 
-function validarForm() {
+function validar() {
   const nome = document.getElementById('campo-nome').value.trim();
-  const cpf = document.getElementById('campo-cpf').value;
-  const btn = document.getElementById('btn-iniciar');
-  const ok = nome.length >= 3 && cpfValido(cpf);
-  btn.classList.toggle('btn-cta-disabled', !ok);
+  const cpf  = document.getElementById('campo-cpf').value;
+  const btn  = document.getElementById('btn-comecar');
+  btn.classList.toggle('btn-desabilitado', !(nome.length >= 3 && cpfOk(cpf)));
 }
 
-function shuffle(a) {
-  const arr=[...a];
-  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
-  return arr;
-}
-
-async function iniciarQuestionario() {
+async function comecar() {
   const nome = document.getElementById('campo-nome').value.trim();
-  const cpf = document.getElementById('campo-cpf').value.replace(/\D/g,'');
-  document.getElementById('erro-cpf').textContent = '';
-  document.getElementById('campo-cpf').classList.remove('erro');
+  const cpf  = document.getElementById('campo-cpf').value.replace(/\D/g,'');
+  const errEl = document.getElementById('erro-cpf');
+  const inEl  = document.getElementById('campo-cpf');
+  errEl.textContent = '';
+  inEl.classList.remove('inv');
+
   try {
-    const ex = await api(`/respostas?evento_id=eq.${EVENTO_ID}&cpf=eq.${cpf}&select=id`);
-    if (ex && ex.length > 0) {
-      document.getElementById('erro-cpf').textContent = 'Este CPF já realizou o diagnóstico neste evento.';
-      document.getElementById('campo-cpf').classList.add('erro'); return;
+    const ex = await req(`/respostas?evento_id=eq.${EVENTO_ID}&cpf=eq.${cpf}&select=id`);
+    if (ex && ex.length) {
+      errEl.textContent = 'Este CPF já realizou o diagnóstico neste evento.';
+      inEl.classList.add('inv');
+      return;
     }
   } catch(e) {}
-  nomeUsuario = nome; cpfUsuario = cpf; iniciouEm = new Date().toISOString();
-  mostrarTela('tela-quiz');
+
+  nomeUser = nome; cpfUser = cpf; inicioEm = new Date().toISOString();
+  irTela('tela-quiz');
+  await carregarPerguntas();
+}
+
+async function carregarPerguntas() {
   try {
-    const pgs = await api('/perguntas?ativo=eq.true&prova=eq.A&select=id,texto,pilar');
-    const alts = await api('/alternativas?select=id,pergunta_id,texto,pontuacao');
-    perguntas = shuffle(pgs.map(p => ({ ...p, alternativas: shuffle(alts.filter(a => a.pergunta_id === p.id)) })));
-    perguntaAtual = 0; respostasUsuario = {};
-    renderPergunta();
+    const pgs  = await req('/perguntas?ativo=eq.true&prova=eq.A&select=id,texto,pilar');
+    const alts = await req('/alternativas?select=id,pergunta_id,texto,pontuacao');
+    perguntas = embaralhar(pgs.map(p => ({
+      ...p,
+      alternativas: embaralhar(alts.filter(a => a.pergunta_id === p.id))
+    })));
+    atual = 0; respostas = {};
+    renderQ();
   } catch(e) {
-    document.getElementById('corpo-quiz').innerHTML = '<div class="loading-wrap"><div class="loading-txt" style="color:#B0330A">Erro ao carregar. Verifique sua conexão.</div></div>';
+    document.getElementById('quiz-corpo').innerHTML =
+      '<div class="loading-estado"><div class="loader-txt" style="color:var(--erro)">Erro ao carregar. Verifique sua conexão.</div></div>';
   }
 }
 
-const pilarNome = { gestao:'Gestão Estratégica', relacional:'Inteligência Relacional', emocional:'Saúde Emocional' };
+function embaralhar(a) {
+  const arr = [...a];
+  for (let i = arr.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
 
-function renderPergunta() {
-  const p = perguntas[perguntaAtual], total = perguntas.length;
-  const pct = Math.round((perguntaAtual/total)*100);
-  document.getElementById('prog-label').textContent = `Pergunta ${perguntaAtual+1} de ${total}`;
-  document.getElementById('prog-pct').textContent = `${pct}%`;
-  document.getElementById('prog-fill').style.width = `${pct}%`;
-  document.getElementById('btn-voltar').style.display = perguntaAtual===0?'none':'block';
-  document.getElementById('btn-avancar').textContent = perguntaAtual===total-1?'Ver resultado':'Próxima';
+const pilNome = { gestao:'Gestão Estratégica', relacional:'Inteligência Relacional', emocional:'Saúde Emocional' };
 
-  const html = `
-    <div class="pilar-label"><span></span>${pilarNome[p.pilar]}</div>
-    <div class="pergunta-txt">${p.texto}</div>
-    <div class="alts" id="alts-lista">
-      ${p.alternativas.map(alt => `
-        <button class="alt${respostasUsuario[p.id]===alt.id?' sel':''}"
-          onclick="selecionarAlt('${p.id}','${alt.id}',this)">
-          ${alt.texto}
+function renderQ() {
+  const p = perguntas[atual], tot = perguntas.length;
+  const pct = Math.round(((atual+1)/tot)*100);
+
+  document.getElementById('prog-txt').textContent  = `${atual+1} de ${tot}`;
+  document.getElementById('prog-pct').textContent  = `${pct}%`;
+  document.getElementById('prog-barra').style.width = `${pct}%`;
+  document.getElementById('btn-voltar').style.display = atual === 0 ? 'none' : 'block';
+  document.getElementById('btn-prox').textContent = atual === tot-1 ? 'Ver resultado' : 'Próxima';
+
+  document.getElementById('quiz-corpo').innerHTML = `
+    <div class="quiz-pilar">${pilNome[p.pilar]}</div>
+    <div class="quiz-pergunta">${p.texto}</div>
+    <div class="quiz-alts">
+      ${p.alternativas.map(a => `
+        <button class="alt-item${respostas[p.id]===a.id?' marcada':''}"
+          onclick="marcar('${p.id}','${a.id}',this)">
+          ${a.texto}
         </button>`).join('')}
     </div>`;
-  document.getElementById('corpo-quiz').innerHTML = html;
-  atualizarAvancar();
+
+  atualizarProx();
 }
 
-function selecionarAlt(pgId, altId, btn) {
-  respostasUsuario[pgId] = altId;
-  document.querySelectorAll('.alt').forEach(b => b.classList.remove('sel'));
-  btn.classList.add('sel');
-  atualizarAvancar();
+function marcar(pgId, altId, btn) {
+  respostas[pgId] = altId;
+  document.querySelectorAll('.alt-item').forEach(b => b.classList.remove('marcada'));
+  btn.classList.add('marcada');
+  atualizarProx();
 }
 
-function atualizarAvancar() {
-  document.getElementById('btn-avancar').classList.toggle('ok', !!respostasUsuario[perguntas[perguntaAtual]?.id]);
+function atualizarProx() {
+  document.getElementById('btn-prox').classList.toggle('pronto', !!respostas[perguntas[atual]?.id]);
 }
 
-function voltarPerg() { if(perguntaAtual>0){perguntaAtual--;renderPergunta();} }
+function voltar() { if(atual > 0) { atual--; renderQ(); } }
 
-async function avancarPerg() {
-  if (perguntaAtual < perguntas.length-1) { perguntaAtual++; renderPergunta(); }
-  else { await finalizar(); }
+async function avancar() {
+  if (atual < perguntas.length-1) { atual++; renderQ(); }
+  else { await concluir(); }
 }
 
 const PERFIS = {
-  desenvolvida: { label:'Mente Corporativa\nDesenvolvida', desc:'Você demonstra uma mentalidade estratégica, relacional e emocionalmente equilibrada. Lidera com visão, adapta-se com agilidade e entrega resultados sustentáveis.', cta:'Você está pronto para ir além. A Academia Mente Corporativa tem trilhas avançadas para líderes como você.' },
-  em_desenvolvimento: { label:'Mente em\nDesenvolvimento', desc:'Você já possui consciência estratégica e emocional, mas há áreas com grande potencial de crescimento. Com o direcionamento certo, sua evolução pode ser exponencial.', cta:'A Academia Mente Corporativa tem o programa ideal para acelerar seu desenvolvimento de liderança.' },
-  operacional: { label:'Mente\nOperacional', desc:'Você tem foco na execução diária, o que é fundamental. Desenvolver uma visão mais estratégica e relacional pode transformar completamente seus resultados.', cta:'A Academia Mente Corporativa foi criada para líderes que querem dar o próximo grande salto na carreira.' }
+  desenvolvida: {
+    nome: 'Mente Corporativa\nDesenvolvida',
+    desc: 'Você demonstra uma mentalidade estratégica, relacional e emocionalmente equilibrada. Lidera com visão de longo prazo, adapta-se com agilidade e sustenta resultados sem comprometer as pessoas.',
+    cta: 'Você está pronto para ir além. Conheça as trilhas avançadas da Academia Mente Corporativa.'
+  },
+  em_desenvolvimento: {
+    nome: 'Mente em\nDesenvolvimento',
+    desc: 'Você demonstra consciência estratégica e emocional, com pilares que ainda têm espaço significativo de crescimento. Com o direcionamento certo, sua evolução pode ser rápida e consistente.',
+    cta: 'A Academia Mente Corporativa tem o programa exato para acelerar sua liderança.'
+  },
+  operacional: {
+    nome: 'Mente\nOperacional',
+    desc: 'Você tem foco sólido na execução — uma base essencial. Desenvolver uma visão mais estratégica, relacional e emocional pode transformar profundamente sua liderança e seus resultados.',
+    cta: 'A Academia Mente Corporativa foi construída para líderes que querem dar esse próximo salto.'
+  }
 };
 
-async function finalizar() {
-  mostrarTela('tela-resultado');
-  const finalizadoEm = new Date().toISOString();
-  const alts = await api('/alternativas?select=id,pergunta_id,pontuacao');
-  const altMap = {}; alts.forEach(a => { altMap[a.id]=a; });
-  let total=0, gestao=0, relacional=0, emocional=0;
-  const detalhes = [];
+async function concluir() {
+  irTela('tela-resultado');
+  const fimEm = new Date().toISOString();
+
+  const alts = await req('/alternativas?select=id,pontuacao');
+  const altMap = {}; alts.forEach(a => { altMap[a.id] = a.pontuacao; });
+
+  let tot=0, g=0, r=0, e=0;
+  const det = [];
+
   perguntas.forEach(p => {
-    const altId = respostasUsuario[p.id]; if(!altId)return;
-    const alt = altMap[altId]; if(!alt)return;
-    total+=alt.pontuacao;
-    if(p.pilar==='gestao') gestao+=alt.pontuacao;
-    if(p.pilar==='relacional') relacional+=alt.pontuacao;
-    if(p.pilar==='emocional') emocional+=alt.pontuacao;
-    detalhes.push({pergunta_id:p.id, alternativa_id:altId, pontuacao:alt.pontuacao});
+    const aid = respostas[p.id]; if (!aid) return;
+    const pts = altMap[aid] || 0;
+    tot += pts;
+    if (p.pilar==='gestao')     g += pts;
+    if (p.pilar==='relacional') r += pts;
+    if (p.pilar==='emocional')  e += pts;
+    det.push({ pergunta_id:p.id, alternativa_id:aid, pontuacao:pts });
   });
-  const perfil = total>=15?'desenvolvida':total>=7?'em_desenvolvimento':'operacional';
+
+  const perfil = tot>=15 ? 'desenvolvida' : tot>=7 ? 'em_desenvolvimento' : 'operacional';
   const pf = PERFIS[perfil];
-  document.getElementById('res-perfil').textContent = pf.label;
+
+  document.getElementById('res-nome').innerHTML = pf.nome.replace('\n','<br>');
   document.getElementById('res-desc').textContent = pf.desc;
-  document.getElementById('res-cta').textContent = pf.cta;
-  document.getElementById('res-total').innerHTML = `${total}<span> / 21</span>`;
-  document.getElementById('pts-gestao').textContent = `${gestao} / 12`;
-  document.getElementById('pts-relacional').textContent = `${relacional} / 3`;
-  document.getElementById('pts-emocional').textContent = `${emocional} / 6`;
+  document.getElementById('res-cta').textContent  = pf.cta;
+  document.getElementById('res-total').textContent = tot;
+  document.getElementById('pts-g').textContent = `${g} / 12`;
+  document.getElementById('pts-r').textContent = `${r} / 3`;
+  document.getElementById('pts-e').textContent = `${e} / 6`;
+
   setTimeout(() => {
-    document.getElementById('bar-gestao').style.width=`${(gestao/12)*100}%`;
-    document.getElementById('bar-relacional').style.width=`${(relacional/3)*100}%`;
-    document.getElementById('bar-emocional').style.width=`${(emocional/6)*100}%`;
-  }, 200);
+    document.getElementById('bar-g').style.width = `${(g/12)*100}%`;
+    document.getElementById('bar-r').style.width = `${(r/3)*100}%`;
+    document.getElementById('bar-e').style.width = `${(e/6)*100}%`;
+  }, 150);
+
   try {
-    const resp = await api('/respostas', { method:'POST', body:{ evento_id:EVENTO_ID, nome:nomeUsuario, cpf:cpfUsuario, pontuacao_total:total, pontuacao_gestao:gestao, pontuacao_relacional:relacional, pontuacao_emocional:emocional, perfil, iniciado_em:iniciouEm, finalizado_em:finalizadoEm } });
-    if(resp&&resp[0]) {
-      const rid=resp[0].id;
-      await api('/respostas_detalhes', { method:'POST', body:detalhes.map(d=>({...d,resposta_id:rid})) });
+    const resp = await req('/respostas', { method:'POST', body:{
+      evento_id: EVENTO_ID, nome: nomeUser, cpf: cpfUser,
+      pontuacao_total: tot, pontuacao_gestao: g, pontuacao_relacional: r, pontuacao_emocional: e,
+      perfil, iniciado_em: inicioEm, finalizado_em: fimEm
+    }});
+    if (resp && resp[0]) {
+      await req('/respostas_detalhes', { method:'POST',
+        body: det.map(d => ({...d, resposta_id: resp[0].id}))
+      });
     }
   } catch(e) { console.error(e); }
-  setTimeout(() => { mostrarTela('tela-espera'); atualizarContador(); setInterval(atualizarContador,8000); }, 7000);
+
+  setTimeout(() => {
+    irTela('tela-espera');
+    atualizarContadorEspera();
+    setInterval(atualizarContadorEspera, 10000);
+  }, 7000);
 }
 
 window.onload = init;
