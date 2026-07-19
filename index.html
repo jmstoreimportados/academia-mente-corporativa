@@ -7,616 +7,174 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 :root {
-  --creme:   #F0EDE6;
-  --creme-2: #E2DDD4;
-  --creme-3: #D4CEC4;
-  --azul:    #0C1F4A;
-  --azul-2:  #142960;
-  --gold:    #B8821E;
-  --gold-lt: #D4A040;
-  --texto:   #18181E;
-  --medio:   #5A5A6A;
-  --suave:   #9A9698;
-  --branco:  #FFFFFF;
-  --erro:    #A02010;
+  --creme:#F0EDE6; --creme-2:#E2DDD4; --creme-3:#D4CEC4;
+  --azul:#0C1F4A;  --azul-2:#142960;
+  --gold:#B8821E;  --gold-lt:#D4A040;
+  --texto:#18181E; --medio:#5A5A6A; --suave:#9A9698;
+  --branco:#FFFFFF; --erro:#A02010; --ok:#1A6B3C;
 }
+html,body { background:var(--creme); color:var(--texto); font-family:'Inter',system-ui,sans-serif; min-height:100vh; }
 
-html, body {
-  background: var(--creme);
-  color: var(--texto);
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 16px;
-  min-height: 100vh;
-}
+/* ── SCREENS ── */
+.screen { display:none; flex-direction:column; min-height:100vh; max-width:420px; margin:0 auto; }
+.screen.on { display:flex; }
 
-.screen {
-  display: none;
-  flex-direction: column;
-  min-height: 100vh;
-  max-width: 420px;
-  margin: 0 auto;
-}
-.screen.on { display: flex; }
+/* ── TELA INÍCIO ── */
+.intro-top { background:var(--azul); padding:44px 28px 36px; }
+.brand-mark { display:flex; align-items:center; gap:14px; margin-bottom:32px; }
+.brand-mark svg { width:54px; height:54px; flex-shrink:0; }
+.brand-name { font-family:'Barlow Condensed',sans-serif; font-size:1.05rem; font-weight:800; color:var(--branco); text-transform:uppercase; letter-spacing:1px; line-height:1.1; }
+.brand-name em { display:block; color:var(--gold-lt); font-style:normal; }
+.brand-sub { font-size:0.65rem; font-weight:500; color:rgba(255,255,255,0.4); letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+.intro-headline { font-family:'Barlow Condensed',sans-serif; font-size:2.8rem; font-weight:800; color:var(--branco); text-transform:uppercase; line-height:0.95; letter-spacing:-1px; margin-bottom:14px; }
+.intro-headline strong { display:block; color:var(--gold-lt); }
+.intro-line { width:40px; height:2px; background:var(--gold); margin-bottom:14px; }
+.intro-desc { font-size:0.875rem; color:rgba(255,255,255,0.5); line-height:1.65; max-width:300px; }
+.intro-body { padding:28px 24px 32px; flex:1; display:flex; flex-direction:column; }
+.pilares-label { font-size:0.68rem; font-weight:600; color:var(--suave); letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+.pilares-lista { display:flex; flex-direction:column; gap:1px; margin-bottom:28px; }
+.pilar-row { display:flex; align-items:center; gap:14px; padding:13px 16px; background:var(--branco); }
+.pilar-num { font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; color:var(--gold); width:18px; flex-shrink:0; }
+.pilar-nome { font-size:0.82rem; font-weight:600; color:var(--azul); margin-bottom:1px; }
+.pilar-mini { font-size:0.72rem; color:var(--suave); line-height:1.4; }
+.intro-aviso { font-size:0.78rem; color:var(--suave); line-height:1.6; padding:14px 0; border-top:1px solid var(--creme-2); margin-bottom:20px; }
+.rodape-evento { padding:12px 24px; font-size:0.7rem; color:var(--suave); text-align:center; border-top:1px solid var(--creme-2); }
 
-/* ─────────────────────────────────────────
-   TELA 1 — BOAS-VINDAS
-───────────────────────────────────────── */
-.intro-top {
-  background: var(--azul);
-  padding: 44px 28px 36px;
-}
+/* ── BOTÕES ── */
+.btn-p { display:block; width:100%; padding:16px 24px; background:var(--azul); color:var(--branco); font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; border:none; cursor:pointer; text-align:center; margin-top:auto; transition:background 0.15s; }
+.btn-p:active { background:var(--azul-2); }
+.btn-p.off { opacity:0.3; pointer-events:none; }
 
-/* Logo — recriado fiel ao vídeo */
-.brand-mark {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 32px;
-}
-.brand-mark svg {
-  width: 54px;
-  height: 54px;
-  flex-shrink: 0;
-}
-.brand-text {}
-.brand-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--branco);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  line-height: 1.1;
-}
-.brand-name em {
-  display: block;
-  color: var(--gold-lt);
-  font-style: normal;
-}
-.brand-sub {
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-top: 3px;
-}
+/* ── TELA CADASTRO ── */
+.page-top { background:var(--azul); padding:20px 24px; display:flex; align-items:center; gap:14px; }
+.btn-back { width:34px; height:34px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+.btn-back svg { width:14px; height:14px; }
+.step-label { font-size:0.65rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:2px; }
+.page-top h2 { font-family:'Barlow Condensed',sans-serif; font-size:1.3rem; font-weight:800; color:var(--branco); text-transform:uppercase; }
+.form-corpo { padding:28px 24px; flex:1; display:flex; flex-direction:column; }
+.form-nota { padding:13px 16px; background:var(--branco); border-left:2px solid var(--azul); font-size:0.78rem; color:var(--medio); line-height:1.55; margin-bottom:26px; }
+.campo { margin-bottom:18px; }
+.campo label { display:block; font-size:0.68rem; font-weight:600; color:var(--azul); letter-spacing:1.8px; text-transform:uppercase; margin-bottom:7px; }
+.campo input { width:100%; padding:13px 14px; background:var(--branco); border:1px solid var(--creme-2); border-bottom:2px solid var(--creme-3); color:var(--texto); font-family:'Inter',sans-serif; font-size:0.95rem; border-radius:0; -webkit-appearance:none; transition:border-color 0.15s; }
+.campo input:focus { outline:none; border-bottom-color:var(--azul); }
+.campo input.inv { border-bottom-color:var(--erro); }
+.campo-erro { font-size:0.74rem; color:var(--erro); margin-top:5px; font-weight:500; }
 
-.intro-headline {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: var(--branco);
-  text-transform: uppercase;
-  line-height: 0.95;
-  letter-spacing: -1px;
-  margin-bottom: 14px;
-}
-.intro-headline strong {
-  display: block;
-  color: var(--gold-lt);
-  font-weight: 800;
-}
+/* ── MODAL CONFIRMAÇÃO ── */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(12,31,74,0.7); z-index:100; align-items:flex-end; justify-content:center; }
+.modal-overlay.on { display:flex; }
+.modal-box { background:var(--branco); width:100%; max-width:420px; padding:28px 24px 32px; border-top:3px solid var(--azul); }
+.modal-titulo { font-family:'Barlow Condensed',sans-serif; font-size:1.2rem; font-weight:800; color:var(--azul); text-transform:uppercase; margin-bottom:8px; }
+.modal-txt { font-size:0.84rem; color:var(--medio); line-height:1.6; margin-bottom:20px; }
+.modal-acoes { display:flex; gap:10px; }
+.modal-cancelar { flex:1; padding:13px; background:transparent; border:1px solid var(--creme-2); color:var(--suave); font-family:'Inter',sans-serif; font-size:0.85rem; cursor:pointer; }
+.modal-confirmar { flex:2; padding:13px; background:var(--azul); color:var(--branco); border:none; font-family:'Barlow Condensed',sans-serif; font-size:0.95rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; }
 
-.intro-line {
-  width: 40px;
-  height: 2px;
-  background: var(--gold);
-  margin-bottom: 14px;
-}
+/* ── TELA QUIZ ── */
+.quiz-top { background:var(--azul); padding:18px 24px 16px; }
+.prog-nums { display:flex; justify-content:space-between; font-size:0.72rem; color:rgba(255,255,255,0.4); margin-bottom:8px; font-weight:500; }
+.prog-nums span:last-child { color:var(--gold); font-weight:600; }
+.prog-trilho { height:2px; background:rgba(255,255,255,0.1); }
+.prog-barra { height:100%; background:var(--gold); transition:width 0.4s cubic-bezier(.4,0,.2,1); }
+.quiz-corpo { padding:24px; flex:1; display:flex; flex-direction:column; }
+.quiz-pilar { font-size:0.65rem; font-weight:600; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; border-left:2px solid var(--gold); padding-left:8px; }
+.quiz-pergunta { font-size:1.05rem; font-weight:600; color:var(--azul); line-height:1.5; margin-bottom:22px; }
+.quiz-alts { display:flex; flex-direction:column; gap:6px; }
+.alt-item { width:100%; padding:13px 16px; background:var(--branco); border:1px solid var(--creme-2); color:var(--texto); font-family:'Inter',sans-serif; font-size:0.875rem; text-align:left; cursor:pointer; line-height:1.5; transition:border-color 0.12s,background 0.12s; -webkit-appearance:none; }
+.alt-item:hover { border-color:var(--creme-3); background:#F8F5EE; }
+.alt-item.marcada { background:var(--branco); border-color:var(--azul); border-left:3px solid var(--gold); color:var(--azul); font-weight:500; padding-left:14px; }
+.quiz-nav { display:flex; gap:8px; padding:14px 24px 24px; }
+.btn-voltar { padding:13px 16px; background:transparent; border:1px solid var(--creme-2); color:var(--suave); font-family:'Inter',sans-serif; font-size:0.82rem; cursor:pointer; white-space:nowrap; }
+.btn-prox { flex:1; padding:13px; background:var(--azul); color:var(--branco); border:none; font-family:'Barlow Condensed',sans-serif; font-size:0.95rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; opacity:0.25; pointer-events:none; transition:opacity 0.15s; }
+.btn-prox.ok { opacity:1; pointer-events:all; }
 
-.intro-desc {
-  font-size: 0.875rem;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.65;
-  max-width: 300px;
-}
+/* ── LOADING RESULTADO ── */
+.res-loading { flex:1; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px; padding:60px 0; }
+.loader { width:28px; height:28px; border:2px solid var(--creme-2); border-top-color:var(--azul); border-radius:50%; animation:girar 0.65s linear infinite; }
+@keyframes girar { to { transform:rotate(360deg); } }
+.loader-txt { font-size:0.8rem; color:var(--suave); }
 
-.intro-body {
-  padding: 28px 24px 32px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
+/* ── TELA RESULTADO ── */
+.resultado-top { background:var(--azul); padding:36px 28px 30px; }
+.res-tag { font-size:0.65rem; font-weight:600; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+.res-nome { font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:800; color:var(--branco); text-transform:uppercase; line-height:1.0; margin-bottom:14px; letter-spacing:-0.5px; }
+.res-linha { width:32px; height:2px; background:var(--gold); margin-bottom:14px; }
+.res-descricao { font-size:0.84rem; color:rgba(255,255,255,0.5); line-height:1.7; }
+.resultado-corpo { padding:24px; flex:1; }
+.pontuacao-box { display:flex; align-items:baseline; gap:6px; padding:16px 18px; background:var(--branco); margin-bottom:20px; }
+.pts-valor { font-family:'Barlow Condensed',sans-serif; font-size:2.4rem; font-weight:800; color:var(--azul); line-height:1; }
+.pts-max { font-size:1rem; color:var(--suave); }
+.pts-label { font-size:0.72rem; color:var(--suave); margin-left:auto; text-align:right; line-height:1.4; }
+.pilares-resultado { margin-bottom:20px; }
+.pr-titulo { font-size:0.65rem; font-weight:600; color:var(--suave); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+.pr-item { padding:14px 16px; background:var(--branco); margin-bottom:1px; }
+.pr-item-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.pr-item-nome { font-size:0.8rem; font-weight:600; color:var(--azul); }
+.pr-item-pts { font-size:0.75rem; color:var(--suave); font-weight:500; }
+.pr-trilho { height:2px; background:var(--creme-2); }
+.pr-fill { height:100%; background:var(--gold); transition:width 1.4s cubic-bezier(.4,0,.2,1); }
 
-.pilares-bloco {
-  margin-bottom: 28px;
-}
-.pilares-label {
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--suave);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.pilares-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-.pilar-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 13px 16px;
-  background: var(--branco);
-}
-.pilar-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--gold);
-  width: 18px;
-  flex-shrink: 0;
-}
-.pilar-info {}
-.pilar-nome {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--azul);
-  margin-bottom: 1px;
-}
-.pilar-desc-mini {
-  font-size: 0.72rem;
-  color: var(--suave);
-  line-height: 1.4;
-}
+/* comparativo com média */
+.pr-media { font-size:0.7rem; margin-top:5px; font-weight:500; }
+.pr-media.acima { color:var(--ok); }
+.pr-media.abaixo { color:var(--suave); }
+.pr-media.igual { color:var(--suave); }
 
-.intro-aviso {
-  font-size: 0.78rem;
-  color: var(--suave);
-  line-height: 1.6;
-  padding: 14px 0;
-  border-top: 1px solid var(--creme-2);
-  margin-bottom: 20px;
-}
+.cta-resultado { padding:18px; background:var(--azul); margin-bottom:0; }
+.cta-r-titulo { font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:6px; }
+.cta-r-txt { font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.65; }
 
-.btn-principal {
-  display: block;
-  width: 100%;
-  padding: 16px 24px;
-  background: var(--azul);
-  color: var(--branco);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  margin-top: auto;
-  transition: background 0.15s;
-  position: relative;
-}
-.btn-principal:active { background: var(--azul-2); }
+/* toast de confirmação de salvamento */
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); padding:10px 18px; font-size:0.8rem; font-weight:500; white-space:nowrap; z-index:200; opacity:0; transition:opacity 0.3s; pointer-events:none; }
+.toast.show { opacity:1; }
+.toast.ok-toast { background:var(--ok); color:#fff; }
+.toast.err-toast { background:var(--erro); color:#fff; }
 
-.rodape-evento {
-  padding: 12px 24px;
-  font-size: 0.7rem;
-  color: var(--suave);
-  text-align: center;
-  letter-spacing: 0.3px;
-  border-top: 1px solid var(--creme-2);
-}
+/* ── TELA ESPERA ── */
+.espera-corpo { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 32px; text-align:center; }
+.espera-check { width:56px; height:56px; background:var(--azul); display:flex; align-items:center; justify-content:center; margin:0 auto 22px; }
+.espera-check svg { width:24px; height:24px; }
+.espera-titulo { font-family:'Barlow Condensed',sans-serif; font-size:1.6rem; font-weight:800; color:var(--azul); text-transform:uppercase; margin-bottom:8px; }
+.espera-txt { font-size:0.84rem; color:var(--medio); line-height:1.65; max-width:270px; }
+.espera-contador { width:100%; padding:20px; background:var(--branco); border-top:2px solid var(--azul); text-align:center; display:none; }
+.espera-contador.vis { display:block; }
+.ec-num { font-family:'Barlow Condensed',sans-serif; font-size:2.8rem; font-weight:800; color:var(--azul); line-height:1; }
+.ec-lbl { font-size:0.72rem; color:var(--suave); margin-top:4px; letter-spacing:0.5px; }
 
-/* ─────────────────────────────────────────
-   TELA 2 — CADASTRO
-───────────────────────────────────────── */
-.page-top {
-  background: var(--azul);
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.btn-back {
-  width: 34px; height: 34px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0;
-}
-.btn-back svg { width: 14px; height: 14px; }
-.page-title-wrap .step-label {
-  font-size: 0.65rem; font-weight: 600;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 2px;
-}
-.page-title-wrap h2 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.3rem; font-weight: 800;
-  color: var(--branco); text-transform: uppercase;
-}
-
-.form-corpo {
-  padding: 28px 24px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-nota {
-  padding: 13px 16px;
-  background: var(--branco);
-  border-left: 2px solid var(--azul);
-  font-size: 0.78rem;
-  color: var(--medio);
-  line-height: 1.55;
-  margin-bottom: 26px;
-}
-
-.campo { margin-bottom: 18px; }
-.campo label {
-  display: block;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--azul);
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  margin-bottom: 7px;
-}
-.campo input {
-  width: 100%;
-  padding: 13px 14px;
-  background: var(--branco);
-  border: 1px solid var(--creme-2);
-  border-bottom: 2px solid var(--creme-3);
-  color: var(--texto);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  border-radius: 0;
-  -webkit-appearance: none;
-  transition: border-color 0.15s;
-}
-.campo input:focus {
-  outline: none;
-  border-bottom-color: var(--azul);
-}
-.campo input.inv { border-bottom-color: var(--erro); }
-.campo-erro { font-size: 0.74rem; color: var(--erro); margin-top: 5px; font-weight: 500; }
-
-.btn-desabilitado { opacity: 0.3; pointer-events: none; }
-
-/* ─────────────────────────────────────────
-   TELA 3 — QUIZ
-───────────────────────────────────────── */
-.quiz-top {
-  background: var(--azul);
-  padding: 18px 24px 16px;
-}
-.prog-nums {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-.prog-nums span:last-child { color: var(--gold); font-weight: 600; }
-.prog-trilho {
-  height: 2px;
-  background: rgba(255,255,255,0.1);
-}
-.prog-barra {
-  height: 100%;
-  background: var(--gold);
-  transition: width 0.4s cubic-bezier(.4,0,.2,1);
-}
-
-.quiz-corpo {
-  padding: 24px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.quiz-pilar {
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: var(--gold);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-  border-left: 2px solid var(--gold);
-  padding-left: 8px;
-}
-.quiz-pergunta {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--azul);
-  line-height: 1.5;
-  margin-bottom: 22px;
-}
-.quiz-alts {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.alt-item {
-  width: 100%;
-  padding: 13px 16px;
-  background: var(--branco);
-  border: 1px solid var(--creme-2);
-  color: var(--texto);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  text-align: left;
-  cursor: pointer;
-  line-height: 1.5;
-  transition: border-color 0.12s, background 0.12s;
-  -webkit-appearance: none;
-}
-.alt-item:hover {
-  border-color: var(--creme-3);
-  background: #F8F5EE;
-}
-.alt-item.marcada {
-  background: var(--branco);
-  border-color: var(--azul);
-  border-left: 3px solid var(--gold);
-  color: var(--azul);
-  font-weight: 500;
-  padding-left: 14px;
-}
-
-.quiz-nav {
-  display: flex;
-  gap: 8px;
-  padding: 14px 24px 24px;
-}
-.btn-voltar {
-  padding: 13px 16px;
-  background: transparent;
-  border: 1px solid var(--creme-2);
-  color: var(--suave);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.btn-prox {
-  flex: 1;
-  padding: 13px;
-  background: var(--azul);
-  color: var(--branco);
-  border: none;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  opacity: 0.25;
-  pointer-events: none;
-  transition: opacity 0.15s;
-}
-.btn-prox.pronto { opacity: 1; pointer-events: all; }
-
-/* ─────────────────────────────────────────
-   TELA 4 — RESULTADO
-───────────────────────────────────────── */
-.resultado-top {
-  background: var(--azul);
-  padding: 36px 28px 30px;
-}
-.res-tag {
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: var(--gold);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.res-nome {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--branco);
-  text-transform: uppercase;
-  line-height: 1.0;
-  margin-bottom: 14px;
-  letter-spacing: -0.5px;
-}
-.res-linha {
-  width: 32px; height: 2px;
-  background: var(--gold);
-  margin-bottom: 14px;
-}
-.res-descricao {
-  font-size: 0.84rem;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.7;
-}
-
-.resultado-corpo {
-  padding: 24px;
-  flex: 1;
-}
-
-.pontuacao-box {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  padding: 16px 18px;
-  background: var(--branco);
-  margin-bottom: 20px;
-}
-.pts-valor {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: var(--azul);
-  line-height: 1;
-}
-.pts-max {
-  font-size: 1rem;
-  color: var(--suave);
-}
-.pts-label {
-  font-size: 0.72rem;
-  color: var(--suave);
-  margin-left: auto;
-  text-align: right;
-  line-height: 1.4;
-}
-
-.pilares-resultado {
-  margin-bottom: 20px;
-}
-.pr-titulo {
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: var(--suave);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.pr-item {
-  padding: 14px 16px;
-  background: var(--branco);
-  margin-bottom: 1px;
-}
-.pr-item-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.pr-item-nome {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--azul);
-}
-.pr-item-pts {
-  font-size: 0.75rem;
-  color: var(--suave);
-  font-weight: 500;
-}
-.pr-trilho {
-  height: 2px;
-  background: var(--creme-2);
-}
-.pr-fill {
-  height: 100%;
-  background: var(--gold);
-  transition: width 1.4s cubic-bezier(.4,0,.2,1);
-}
-
-.cta-resultado {
-  padding: 18px;
-  background: var(--azul);
-}
-.cta-r-titulo {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 6px;
-}
-.cta-r-txt {
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.65;
-}
-
-/* ─────────────────────────────────────────
-   TELA 5 — ESPERA
-───────────────────────────────────────── */
-.espera-corpo {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 48px 32px;
-  text-align: center;
-}
-.espera-check {
-  width: 56px; height: 56px;
-  background: var(--azul);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 22px;
-}
-.espera-check svg { width: 24px; height: 24px; }
-.espera-titulo {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--azul);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.espera-txt {
-  font-size: 0.84rem;
-  color: var(--medio);
-  line-height: 1.65;
-  max-width: 270px;
-}
-
-/* Contador — aparece só se >100 */
-.espera-contador {
-  width: 100%;
-  padding: 20px;
-  background: var(--branco);
-  border-top: 2px solid var(--azul);
-  text-align: center;
-  display: none;
-}
-.espera-contador.visivel { display: block; }
-.ec-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: var(--azul);
-  line-height: 1;
-}
-.ec-lbl {
-  font-size: 0.72rem;
-  color: var(--suave);
-  margin-top: 4px;
-  letter-spacing: 0.5px;
-}
-
-/* LOADING */
-.loading-estado {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 12px;
-}
-.loader {
-  width: 28px; height: 28px;
-  border: 2px solid var(--creme-2);
-  border-top-color: var(--azul);
-  border-radius: 50%;
-  animation: girar 0.65s linear infinite;
-}
-@keyframes girar { to { transform: rotate(360deg); } }
-.loader-txt { font-size: 0.8rem; color: var(--suave); }
+/* ── TELA ERRO CONEXÃO ── */
+.erro-tela { flex:1; display:flex; align-items:center; justify-content:center; flex-direction:column; padding:40px 32px; text-align:center; gap:12px; }
+.erro-tela h3 { font-family:'Barlow Condensed',sans-serif; font-size:1.3rem; font-weight:800; color:var(--erro); text-transform:uppercase; }
+.erro-tela p { font-size:0.84rem; color:var(--medio); line-height:1.6; max-width:260px; }
+.btn-retry { margin-top:8px; padding:12px 24px; background:var(--azul); color:var(--branco); border:none; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; }
 </style>
 </head>
 <body>
 
-<!-- ══ TELA: INÍCIO ══ -->
+<!-- MODAL CONFIRMAÇÃO -->
+<div class="modal-overlay" id="modal-confirmar">
+  <div class="modal-box">
+    <div class="modal-titulo">Tudo respondido?</div>
+    <p class="modal-txt">Você respondeu todas as 7 perguntas. Após confirmar, seu diagnóstico será processado e não poderá ser alterado.</p>
+    <div class="modal-acoes">
+      <button class="modal-cancelar" onclick="fecharModal()">Revisar</button>
+      <button class="modal-confirmar" onclick="confirmarEnvio()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ══ INÍCIO ══ -->
 <div class="screen on" id="tela-inicio">
   <div class="intro-top">
     <div class="brand-mark">
-      <!-- Logo SVG fiel ao vídeo: silhueta de rosto/cérebro com arco dourado e barras de gráfico -->
       <svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="27" cy="27" r="26" stroke="#B8821E" stroke-width="1"/>
-        <!-- arco dourado -->
         <path d="M10 32 Q27 8 44 32" stroke="#B8821E" stroke-width="1.5" fill="none"/>
-        <!-- silhueta cerebro/rosto -->
         <path d="M18 28 C16 22 18 16 22 14 C25 12 28 13 30 16 C32 13 35 12 38 14 C42 16 44 22 42 28 C41 31 39 33 37 34 L27 38 L17 34 C15 33 18 30 18 28Z" fill="#0C1F4A"/>
-        <!-- rede neural interna -->
         <circle cx="23" cy="22" r="1.2" fill="#B8821E"/>
         <circle cx="28" cy="19" r="1.2" fill="#B8821E"/>
         <circle cx="33" cy="22" r="1.2" fill="#B8821E"/>
@@ -627,175 +185,142 @@ html, body {
         <line x1="23" y1="22" x2="26" y2="27" stroke="#B8821E" stroke-width="0.7" opacity="0.7"/>
         <line x1="33" y1="22" x2="32" y2="27" stroke="#B8821E" stroke-width="0.7" opacity="0.7"/>
         <line x1="26" y1="27" x2="32" y2="27" stroke="#B8821E" stroke-width="0.7" opacity="0.7"/>
-        <!-- barras de gráfico -->
         <rect x="20" y="40" width="3" height="7" fill="#B8821E"/>
         <rect x="24.5" y="37" width="3" height="10" fill="#B8821E"/>
         <rect x="29" y="41" width="3" height="6" fill="#B8821E"/>
         <rect x="33.5" y="43" width="3" height="4" fill="#B8821E" opacity="0.5"/>
       </svg>
-      <div class="brand-text">
+      <div>
         <div class="brand-name">Mente<em>Corporativa</em></div>
         <div class="brand-sub">Academia</div>
       </div>
     </div>
-
-    <h1 class="intro-headline">
-      Qual é<br>sua<br><strong>mentalidade?</strong>
-    </h1>
+    <h1 class="intro-headline">Qual é<br>sua<br><strong>mentalidade?</strong></h1>
     <div class="intro-line"></div>
     <p class="intro-desc">Sete questões. Resultado imediato. Descubra como você lidera sob pressão, constrói relações e cuida do seu equilíbrio.</p>
   </div>
-
   <div class="intro-body">
-    <div class="pilares-bloco">
-      <div class="pilares-label">Três pilares avaliados</div>
-      <div class="pilares-lista">
-        <div class="pilar-row">
-          <div class="pilar-num">01</div>
-          <div class="pilar-info">
-            <div class="pilar-nome">Gestão Estratégica</div>
-            <div class="pilar-desc-mini">Visão analítica, KPIs, tomada de decisão e alinhamento de processos</div>
-          </div>
-        </div>
-        <div class="pilar-row">
-          <div class="pilar-num">02</div>
-          <div class="pilar-info">
-            <div class="pilar-nome">Inteligência Relacional</div>
-            <div class="pilar-desc-mini">Gestão de equipes, cultura organizacional e liderança ética</div>
-          </div>
-        </div>
-        <div class="pilar-row">
-          <div class="pilar-num">03</div>
-          <div class="pilar-info">
-            <div class="pilar-nome">Saúde Emocional</div>
-            <div class="pilar-desc-mini">Resiliência, mindfulness e sustentabilidade da performance</div>
-          </div>
-        </div>
+    <div class="pilares-label">Três pilares avaliados</div>
+    <div class="pilares-lista">
+      <div class="pilar-row">
+        <div class="pilar-num">01</div>
+        <div><div class="pilar-nome">Gestão Estratégica</div><div class="pilar-mini">Visão analítica, KPIs, tomada de decisão e alinhamento de processos</div></div>
+      </div>
+      <div class="pilar-row">
+        <div class="pilar-num">02</div>
+        <div><div class="pilar-nome">Inteligência Relacional</div><div class="pilar-mini">Gestão de equipes, cultura organizacional e liderança ética</div></div>
+      </div>
+      <div class="pilar-row">
+        <div class="pilar-num">03</div>
+        <div><div class="pilar-nome">Saúde Emocional</div><div class="pilar-mini">Resiliência, mindfulness e sustentabilidade da performance</div></div>
       </div>
     </div>
-
     <p class="intro-aviso">Suas respostas são individuais e confidenciais. Os resultados serão apresentados de forma agregada ao final do evento.</p>
-
-    <button class="btn-principal" onclick="irCadastro()">Iniciar diagnóstico</button>
+    <button class="btn-p" onclick="irCadastro()">Iniciar diagnóstico</button>
   </div>
   <div class="rodape-evento" id="label-evento"></div>
 </div>
 
-<!-- ══ TELA: CADASTRO ══ -->
+<!-- ══ CADASTRO ══ -->
 <div class="screen" id="tela-cadastro">
   <div class="page-top">
     <button class="btn-back" onclick="irTela('tela-inicio')">
-      <svg viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round">
-        <path d="M9 2 L4 7 L9 12"/>
-      </svg>
+      <svg viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><path d="M9 2 L4 7 L9 12"/></svg>
     </button>
-    <div class="page-title-wrap">
+    <div>
       <div class="step-label">Identificação</div>
       <h2>Seus dados</h2>
     </div>
   </div>
-
   <div class="form-corpo">
-    <div class="form-nota">
-      Precisamos do seu nome e CPF para garantir que cada diagnóstico seja único e para personalizar seu resultado.
-    </div>
-
+    <div class="form-nota">Precisamos do seu nome e CPF para garantir que cada diagnóstico seja único e para personalizar seu resultado.</div>
     <div class="campo">
       <label>Nome completo</label>
-      <input type="text" id="campo-nome" placeholder="Como você se chama?" oninput="validar()" autocomplete="name" />
+      <input type="text" id="campo-nome" placeholder="Como você se chama?" oninput="validar()" autocomplete="name"/>
       <div class="campo-erro" id="erro-nome"></div>
     </div>
-
     <div class="campo">
       <label>CPF</label>
-      <input type="text" id="campo-cpf" placeholder="000.000.000-00" maxlength="14"
-             oninput="fmtCPF(this);validar()" inputmode="numeric" />
+      <input type="text" id="campo-cpf" placeholder="000.000.000-00" maxlength="14" oninput="fmtCPF(this);validar()" inputmode="numeric"/>
       <div class="campo-erro" id="erro-cpf"></div>
     </div>
-
-    <button class="btn-principal btn-desabilitado" id="btn-comecar" onclick="comecar()" style="margin-top:auto">
-      Começar questionário
-    </button>
+    <button class="btn-p off" id="btn-comecar" onclick="comecar()" style="margin-top:auto">Começar questionário</button>
   </div>
 </div>
 
-<!-- ══ TELA: QUIZ ══ -->
+<!-- ══ QUIZ ══ -->
 <div class="screen" id="tela-quiz">
   <div class="quiz-top">
     <div class="prog-nums">
       <span id="prog-txt">1 de 7</span>
       <span id="prog-pct">14%</span>
     </div>
-    <div class="prog-trilho">
-      <div class="prog-barra" id="prog-barra" style="width:0%"></div>
-    </div>
+    <div class="prog-trilho"><div class="prog-barra" id="prog-barra" style="width:0%"></div></div>
   </div>
-
   <div class="quiz-corpo" id="quiz-corpo">
-    <div class="loading-estado">
-      <div class="loader"></div>
-      <div class="loader-txt">Carregando...</div>
-    </div>
+    <div class="res-loading"><div class="loader"></div><div class="loader-txt">Carregando...</div></div>
   </div>
-
   <div class="quiz-nav">
     <button class="btn-voltar" id="btn-voltar" onclick="voltar()" style="display:none">← Voltar</button>
-    <button class="btn-prox" id="btn-prox" onclick="avancar()">Próxima</button>
+    <button class="btn-prox" id="btn-prox" onclick="pedirConfirmacao()">Próxima</button>
   </div>
 </div>
 
-<!-- ══ TELA: RESULTADO ══ -->
+<!-- ══ RESULTADO ══ -->
 <div class="screen" id="tela-resultado">
-  <div class="resultado-top">
-    <div class="res-tag">Seu perfil</div>
-    <div class="res-nome" id="res-nome">—</div>
-    <div class="res-linha"></div>
-    <div class="res-descricao" id="res-desc"></div>
+  <div id="res-loading-state" class="res-loading" style="background:var(--azul);min-height:45vh;max-height:45vh">
+    <div class="loader" style="border-top-color:var(--gold);border-color:rgba(255,255,255,0.15)"></div>
+    <div class="loader-txt" style="color:rgba(255,255,255,0.5)">Calculando seu perfil...</div>
   </div>
-
-  <div class="resultado-corpo">
-    <div class="pontuacao-box">
-      <div class="pts-valor" id="res-total">—</div>
-      <div class="pts-max">/ 21</div>
-      <div class="pts-label">pontuação<br>total</div>
+  <div id="res-conteudo" style="display:none; flex-direction:column; flex:1">
+    <div class="resultado-top">
+      <div class="res-tag">Seu perfil</div>
+      <div class="res-nome" id="res-nome">—</div>
+      <div class="res-linha"></div>
+      <div class="res-descricao" id="res-desc"></div>
     </div>
-
-    <div class="pilares-resultado">
-      <div class="pr-titulo">Resultado por pilar</div>
-
-      <div class="pr-item">
-        <div class="pr-item-top">
-          <span class="pr-item-nome">Gestão Estratégica</span>
-          <span class="pr-item-pts" id="pts-g">— / 12</span>
-        </div>
-        <div class="pr-trilho"><div class="pr-fill" id="bar-g" style="width:0%"></div></div>
+    <div class="resultado-corpo">
+      <div class="pontuacao-box">
+        <div class="pts-valor" id="res-total">—</div>
+        <div class="pts-max">/ 21</div>
+        <div class="pts-label">pontuação<br>total</div>
       </div>
-
-      <div class="pr-item">
-        <div class="pr-item-top">
-          <span class="pr-item-nome">Inteligência Relacional</span>
-          <span class="pr-item-pts" id="pts-r">— / 3</span>
+      <div class="pilares-resultado">
+        <div class="pr-titulo">Resultado por pilar</div>
+        <div class="pr-item">
+          <div class="pr-item-top">
+            <span class="pr-item-nome">Gestão Estratégica</span>
+            <span class="pr-item-pts" id="pts-g">— / 12</span>
+          </div>
+          <div class="pr-trilho"><div class="pr-fill" id="bar-g" style="width:0%"></div></div>
+          <div class="pr-media" id="media-g"></div>
         </div>
-        <div class="pr-trilho"><div class="pr-fill" id="bar-r" style="width:0%"></div></div>
-      </div>
-
-      <div class="pr-item">
-        <div class="pr-item-top">
-          <span class="pr-item-nome">Saúde Emocional</span>
-          <span class="pr-item-pts" id="pts-e">— / 6</span>
+        <div class="pr-item">
+          <div class="pr-item-top">
+            <span class="pr-item-nome">Inteligência Relacional</span>
+            <span class="pr-item-pts" id="pts-r">— / 3</span>
+          </div>
+          <div class="pr-trilho"><div class="pr-fill" id="bar-r" style="width:0%"></div></div>
+          <div class="pr-media" id="media-r"></div>
         </div>
-        <div class="pr-trilho"><div class="pr-fill" id="bar-e" style="width:0%"></div></div>
+        <div class="pr-item">
+          <div class="pr-item-top">
+            <span class="pr-item-nome">Saúde Emocional</span>
+            <span class="pr-item-pts" id="pts-e">— / 6</span>
+          </div>
+          <div class="pr-trilho"><div class="pr-fill" id="bar-e" style="width:0%"></div></div>
+          <div class="pr-media" id="media-e"></div>
+        </div>
       </div>
-    </div>
-
-    <div class="cta-resultado">
-      <div class="cta-r-titulo">Academia Mente Corporativa</div>
-      <div class="cta-r-txt" id="res-cta"></div>
+      <div class="cta-resultado">
+        <div class="cta-r-titulo">Academia Mente Corporativa</div>
+        <div class="cta-r-txt" id="res-cta"></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ══ TELA: ESPERA ══ -->
+<!-- ══ ESPERA ══ -->
 <div class="screen" id="tela-espera">
   <div class="espera-corpo">
     <div class="espera-check">
@@ -806,7 +331,6 @@ html, body {
     <div class="espera-titulo">Diagnóstico concluído</div>
     <p class="espera-txt">Aguarde. Os resultados coletivos serão apresentados ao final do evento.</p>
   </div>
-
   <div class="espera-contador" id="espera-contador">
     <div class="ec-num" id="espera-num">—</div>
     <div class="ec-lbl">diagnósticos realizados neste evento</div>
@@ -814,120 +338,115 @@ html, body {
 </div>
 
 <script>
-const SB_URL = 'https://tixplejtfleigysummuq.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpeHBsZWp0ZmxlaWd5c3VtbXVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0NzU1NTIsImV4cCI6MjEwMDA1MTU1Mn0.QDNtOwzNqomQh2BeHqrSlb0qnCLcYHWw0PxBG1M-3WE';
-const MINIMO_CONTADOR = 100;
+// ── CONFIG ──
+const SB_URL  = 'https://tixplejtfleigysummuq.supabase.co';
+const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpeHBsZWp0ZmxlaWd5c3VtbXVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0NzU1NTIsImV4cCI6MjEwMDA1MTU1Mn0.QDNtOwzNqomQh2BeHqrSlb0qnCLcYHWw0PxBG1M-3WE';
+const MIN_CONTADOR = 100;
+const CACHE_KEY    = 'amc_respostas_cache';
 
 let EVENTO_ID = null, EVENTO_NOME = '';
 let perguntas = [], respostas = {}, atual = 0;
 let inicioEm = null, nomeUser = '', cpfUser = '';
+let mediaEvento = { g:0, r:0, e:0, total:0 };
 
+// ── API ──
 async function req(path, opts = {}) {
   const r = await fetch(`${SB_URL}/rest/v1${path}`, {
-    headers: {
-      'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`,
-      'Content-Type': 'application/json', 'Prefer': 'return=representation',
-      ...opts.headers
-    },
+    headers: { 'apikey':SB_KEY, 'Authorization':`Bearer ${SB_KEY}`,
+      'Content-Type':'application/json', 'Prefer':'return=representation', ...opts.headers },
     method: opts.method || 'GET',
     body: opts.body ? JSON.stringify(opts.body) : undefined
   });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
   const t = await r.text();
   return t ? JSON.parse(t) : null;
 }
 
+// ── INIT ──
 async function init() {
   try {
     const evs = await req('/eventos?ativo=eq.true&order=criado_em.desc&limit=1');
-    if (evs && evs.length) {
-      EVENTO_ID = evs[0].id;
-      EVENTO_NOME = evs[0].nome;
-      document.getElementById('label-evento').textContent = EVENTO_NOME;
-    }
-  } catch(e) {}
+    if (!evs || !evs.length) throw new Error('Sem evento ativo');
+    EVENTO_ID   = evs[0].id;
+    EVENTO_NOME = evs[0].nome;
+    document.getElementById('label-evento').textContent = EVENTO_NOME;
+  } catch(e) {
+    document.getElementById('label-evento').textContent = 'Sem conexão com o servidor';
+  }
 }
 
-async function atualizarContadorEspera() {
-  if (!EVENTO_ID) return;
-  try {
-    const d = await req(`/respostas?evento_id=eq.${EVENTO_ID}&select=id`);
-    const n = d ? d.length : 0;
-    const el = document.getElementById('espera-contador');
-    if (n >= MINIMO_CONTADOR) {
-      document.getElementById('espera-num').textContent = n;
-      el.classList.add('visivel');
-    } else {
-      el.classList.remove('visivel');
-    }
-  } catch(e) {}
-}
-
+// ── NAVEGAÇÃO ──
 function irTela(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
   document.getElementById(id).classList.add('on');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
+}
+function irCadastro() {
+  if (!EVENTO_ID) { mostrarToast('Sem conexão. Tente novamente.', false); return; }
+  irTela('tela-cadastro');
 }
 
-function irCadastro() { irTela('tela-cadastro'); }
-
+// ── CPF ──
 function fmtCPF(el) {
   let v = el.value.replace(/\D/g,'').substring(0,11);
   v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
   el.value = v;
 }
-
 function cpfOk(c) {
   c = c.replace(/\D/g,'');
   if (c.length !== 11 || /^(\d)\1+$/.test(c)) return false;
   let s=0,r;
-  for(let i=0;i<9;i++) s+=+c[i]*(10-i);
-  r=(s*10)%11; if(r>9)r=0; if(r!==+c[9]) return false;
-  s=0; for(let i=0;i<10;i++) s+=+c[i]*(11-i);
-  r=(s*10)%11; if(r>9)r=0; return r===+c[10];
+  for(let i=0;i<9;i++) s += +c[i]*(10-i);
+  r=(s*10)%11; if(r>9)r=0; if(r !== +c[9]) return false;
+  s=0; for(let i=0;i<10;i++) s += +c[i]*(11-i);
+  r=(s*10)%11; if(r>9)r=0; return r === +c[10];
 }
-
 function validar() {
   const nome = document.getElementById('campo-nome').value.trim();
   const cpf  = document.getElementById('campo-cpf').value;
-  const btn  = document.getElementById('btn-comecar');
-  btn.classList.toggle('btn-desabilitado', !(nome.length >= 3 && cpfOk(cpf)));
+  document.getElementById('btn-comecar').classList.toggle('off', !(nome.length >= 3 && cpfOk(cpf)));
 }
 
+// ── COMECAR ──
 async function comecar() {
-  const nome = document.getElementById('campo-nome').value.trim();
-  const cpf  = document.getElementById('campo-cpf').value.replace(/\D/g,'');
+  const nome  = document.getElementById('campo-nome').value.trim();
+  const cpf   = document.getElementById('campo-cpf').value.replace(/\D/g,'');
   const errEl = document.getElementById('erro-cpf');
   const inEl  = document.getElementById('campo-cpf');
-  errEl.textContent = '';
-  inEl.classList.remove('inv');
+  errEl.textContent = ''; inEl.classList.remove('inv');
 
   try {
     const ex = await req(`/respostas?evento_id=eq.${EVENTO_ID}&cpf=eq.${cpf}&select=id`);
     if (ex && ex.length) {
       errEl.textContent = 'Este CPF já realizou o diagnóstico neste evento.';
-      inEl.classList.add('inv');
-      return;
+      inEl.classList.add('inv'); return;
     }
-  } catch(e) {}
+  } catch(e) {
+    errEl.textContent = 'Erro de conexão. Verifique sua internet.'; return;
+  }
 
   nomeUser = nome; cpfUser = cpf; inicioEm = new Date().toISOString();
   irTela('tela-quiz');
   await carregarPerguntas();
 }
 
+// ── QUIZ ──
 async function carregarPerguntas() {
   try {
-    const pgs  = await req('/perguntas?ativo=eq.true&prova=eq.A&select=id,texto,pilar');
-    const alts = await req('/alternativas?select=id,pergunta_id,texto,pontuacao');
-    perguntas = embaralhar(pgs.map(p => ({
-      ...p,
-      alternativas: embaralhar(alts.filter(a => a.pergunta_id === p.id))
-    })));
+    const pgs  = await req('/perguntas?ativo=eq.true&prova=eq.A&select=id,texto,pilar,alternativas(id,texto,pontuacao)');
+    perguntas  = embaralhar(pgs.map(p => ({ ...p, alternativas: embaralhar(p.alternativas) })));
     atual = 0; respostas = {};
+    // Restaurar cache se existir
+    const cache = localStorage.getItem(CACHE_KEY);
+    if (cache) { try { respostas = JSON.parse(cache); } catch(e) {} }
     renderQ();
   } catch(e) {
-    document.getElementById('quiz-corpo').innerHTML =
-      '<div class="loading-estado"><div class="loader-txt" style="color:var(--erro)">Erro ao carregar. Verifique sua conexão.</div></div>';
+    document.getElementById('quiz-corpo').innerHTML = `
+      <div class="erro-tela">
+        <h3>Erro de conexão</h3>
+        <p>Não foi possível carregar as perguntas. Verifique sua internet e tente novamente.</p>
+        <button class="btn-retry" onclick="carregarPerguntas()">Tentar novamente</button>
+      </div>`;
   }
 }
 
@@ -945,12 +464,11 @@ const pilNome = { gestao:'Gestão Estratégica', relacional:'Inteligência Relac
 function renderQ() {
   const p = perguntas[atual], tot = perguntas.length;
   const pct = Math.round(((atual+1)/tot)*100);
-
-  document.getElementById('prog-txt').textContent  = `${atual+1} de ${tot}`;
-  document.getElementById('prog-pct').textContent  = `${pct}%`;
+  document.getElementById('prog-txt').textContent   = `${atual+1} de ${tot}`;
+  document.getElementById('prog-pct').textContent   = `${pct}%`;
   document.getElementById('prog-barra').style.width = `${pct}%`;
-  document.getElementById('btn-voltar').style.display = atual === 0 ? 'none' : 'block';
-  document.getElementById('btn-prox').textContent = atual === tot-1 ? 'Ver resultado' : 'Próxima';
+  document.getElementById('btn-voltar').style.display = atual===0 ? 'none' : 'block';
+  document.getElementById('btn-prox').textContent = atual===tot-1 ? 'Ver resultado' : 'Próxima';
 
   document.getElementById('quiz-corpo').innerHTML = `
     <div class="quiz-pilar">${pilNome[p.pilar]}</div>
@@ -962,70 +480,121 @@ function renderQ() {
           ${a.texto}
         </button>`).join('')}
     </div>`;
-
   atualizarProx();
 }
 
 function marcar(pgId, altId, btn) {
   respostas[pgId] = altId;
+  // Salvar cache local para proteção offline
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(respostas)); } catch(e) {}
   document.querySelectorAll('.alt-item').forEach(b => b.classList.remove('marcada'));
   btn.classList.add('marcada');
   atualizarProx();
 }
 
 function atualizarProx() {
-  document.getElementById('btn-prox').classList.toggle('pronto', !!respostas[perguntas[atual]?.id]);
+  document.getElementById('btn-prox').classList.toggle('ok', !!respostas[perguntas[atual]?.id]);
 }
 
 function voltar() { if(atual > 0) { atual--; renderQ(); } }
 
-async function avancar() {
-  if (atual < perguntas.length-1) { atual++; renderQ(); }
-  else { await concluir(); }
+function pedirConfirmacao() {
+  if (atual < perguntas.length-1) { atual++; renderQ(); return; }
+  // Última pergunta — abrir modal de confirmação
+  document.getElementById('modal-confirmar').classList.add('on');
 }
 
+function fecharModal() {
+  document.getElementById('modal-confirmar').classList.remove('on');
+}
+
+async function confirmarEnvio() {
+  fecharModal();
+  await concluir();
+}
+
+// ── TOAST ──
+function mostrarToast(msg, sucesso = true) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = `toast show ${sucesso ? 'ok-toast' : 'err-toast'}`;
+  setTimeout(() => { t.className = 'toast'; }, 3500);
+}
+
+// ── MÉDIAS DO EVENTO ──
+async function buscarMediaEvento() {
+  try {
+    const d = await req(`/respostas?evento_id=eq.${EVENTO_ID}&select=pontuacao_gestao,pontuacao_relacional,pontuacao_emocional`);
+    if (!d || !d.length) return;
+    const n = d.length;
+    mediaEvento.g = d.reduce((s,r) => s+r.pontuacao_gestao, 0) / n;
+    mediaEvento.r = d.reduce((s,r) => s+r.pontuacao_relacional, 0) / n;
+    mediaEvento.e = d.reduce((s,r) => s+r.pontuacao_emocional, 0) / n;
+    mediaEvento.total = n;
+  } catch(e) {}
+}
+
+function textoComparativo(valor, media, label) {
+  if (media === 0) return '';
+  const diff = valor - media;
+  if (Math.abs(diff) < 0.3) return `<span class="igual">Na média do evento em ${label}</span>`;
+  if (diff > 0) return `<span class="acima">Acima da média do evento em ${label} (+${diff.toFixed(1)} pts)</span>`;
+  return `<span class="abaixo">Abaixo da média em ${label} (${diff.toFixed(1)} pts)</span>`;
+}
+
+// ── PERFIS ──
 const PERFIS = {
   desenvolvida: {
     nome: 'Mente Corporativa\nDesenvolvida',
     desc: 'Você demonstra uma mentalidade estratégica, relacional e emocionalmente equilibrada. Lidera com visão de longo prazo, adapta-se com agilidade e sustenta resultados sem comprometer as pessoas.',
-    cta: 'Você está pronto para ir além. Conheça as trilhas avançadas da Academia Mente Corporativa.'
+    cta:  'Você está pronto para ir além. Conheça as trilhas avançadas da Academia Mente Corporativa.'
   },
   em_desenvolvimento: {
     nome: 'Mente em\nDesenvolvimento',
     desc: 'Você demonstra consciência estratégica e emocional, com pilares que ainda têm espaço significativo de crescimento. Com o direcionamento certo, sua evolução pode ser rápida e consistente.',
-    cta: 'A Academia Mente Corporativa tem o programa exato para acelerar sua liderança.'
+    cta:  'A Academia Mente Corporativa tem o programa exato para acelerar sua liderança.'
   },
   operacional: {
     nome: 'Mente\nOperacional',
     desc: 'Você tem foco sólido na execução — uma base essencial. Desenvolver uma visão mais estratégica, relacional e emocional pode transformar profundamente sua liderança e seus resultados.',
-    cta: 'A Academia Mente Corporativa foi construída para líderes que querem dar esse próximo salto.'
+    cta:  'A Academia Mente Corporativa foi construída para líderes que querem dar esse próximo salto.'
   }
 };
 
+// ── CONCLUIR ──
 async function concluir() {
   irTela('tela-resultado');
+  // Mostrar loading no topo do resultado
+  document.getElementById('res-loading-state').style.display = 'flex';
+  document.getElementById('res-conteudo').style.display = 'none';
+
   const fimEm = new Date().toISOString();
 
-  const alts = await req('/alternativas?select=id,pontuacao');
-  const altMap = {}; alts.forEach(a => { altMap[a.id] = a.pontuacao; });
-
+  // Calcular pontuações usando alternativas já carregadas nas perguntas
   let tot=0, g=0, r=0, e=0;
   const det = [];
-
   perguntas.forEach(p => {
-    const aid = respostas[p.id]; if (!aid) return;
-    const pts = altMap[aid] || 0;
+    const altId = respostas[p.id]; if (!altId) return;
+    const alt   = p.alternativas.find(a => a.id === altId); if (!alt) return;
+    const pts   = alt.pontuacao || 0;
     tot += pts;
     if (p.pilar==='gestao')     g += pts;
     if (p.pilar==='relacional') r += pts;
     if (p.pilar==='emocional')  e += pts;
-    det.push({ pergunta_id:p.id, alternativa_id:aid, pontuacao:pts });
+    det.push({ pergunta_id:p.id, alternativa_id:altId, pontuacao:pts });
   });
+
+  // Calcular tempo em segundos no JS
+  const tempoSeg = Math.round((new Date(fimEm) - new Date(inicioEm)) / 1000);
 
   const perfil = tot>=15 ? 'desenvolvida' : tot>=7 ? 'em_desenvolvimento' : 'operacional';
   const pf = PERFIS[perfil];
 
-  document.getElementById('res-nome').innerHTML = pf.nome.replace('\n','<br>');
+  // Buscar médias do evento para comparativo (em paralelo com o salvamento)
+  await buscarMediaEvento();
+
+  // Preencher resultado
+  document.getElementById('res-nome').innerHTML  = pf.nome.replace('\n','<br>');
   document.getElementById('res-desc').textContent = pf.desc;
   document.getElementById('res-cta').textContent  = pf.cta;
   document.getElementById('res-total').textContent = tot;
@@ -1033,30 +602,63 @@ async function concluir() {
   document.getElementById('pts-r').textContent = `${r} / 3`;
   document.getElementById('pts-e').textContent = `${e} / 6`;
 
+  // Comparativos com média
+  document.getElementById('media-g').innerHTML = textoComparativo(g, mediaEvento.g, 'Gestão');
+  document.getElementById('media-r').innerHTML = textoComparativo(r, mediaEvento.r, 'Relacional');
+  document.getElementById('media-e').innerHTML = textoComparativo(e, mediaEvento.e, 'Emocional');
+
+  // Mostrar conteúdo, esconder loading
+  document.getElementById('res-loading-state').style.display = 'none';
+  document.getElementById('res-conteudo').style.display = 'flex';
+
+  // Animar barras
   setTimeout(() => {
     document.getElementById('bar-g').style.width = `${(g/12)*100}%`;
     document.getElementById('bar-r').style.width = `${(r/3)*100}%`;
     document.getElementById('bar-e').style.width = `${(e/6)*100}%`;
   }, 150);
 
+  // Salvar no banco
   try {
     const resp = await req('/respostas', { method:'POST', body:{
-      evento_id: EVENTO_ID, nome: nomeUser, cpf: cpfUser,
-      pontuacao_total: tot, pontuacao_gestao: g, pontuacao_relacional: r, pontuacao_emocional: e,
-      perfil, iniciado_em: inicioEm, finalizado_em: fimEm
+      evento_id:EVENTO_ID, nome:nomeUser, cpf:cpfUser,
+      pontuacao_total:tot, pontuacao_gestao:g, pontuacao_relacional:r, pontuacao_emocional:e,
+      perfil, tempo_segundos:tempoSeg, iniciado_em:inicioEm, finalizado_em:fimEm
     }});
     if (resp && resp[0]) {
       await req('/respostas_detalhes', { method:'POST',
-        body: det.map(d => ({...d, resposta_id: resp[0].id}))
+        body: det.map(d => ({...d, resposta_id:resp[0].id}))
       });
+      // Limpar cache local após salvar com sucesso
+      try { localStorage.removeItem(CACHE_KEY); } catch(e) {}
+      mostrarToast('Diagnóstico salvo com sucesso', true);
     }
-  } catch(e) { console.error(e); }
+  } catch(e) {
+    mostrarToast('Erro ao salvar. Seus dados foram registrados localmente.', false);
+  }
 
+  // Ir para espera após 8 segundos
   setTimeout(() => {
     irTela('tela-espera');
     atualizarContadorEspera();
     setInterval(atualizarContadorEspera, 10000);
-  }, 7000);
+  }, 8000);
+}
+
+// ── CONTADOR ESPERA ──
+async function atualizarContadorEspera() {
+  if (!EVENTO_ID) return;
+  try {
+    const d = await req(`/respostas?evento_id=eq.${EVENTO_ID}&select=id`);
+    const n = d ? d.length : 0;
+    const el = document.getElementById('espera-contador');
+    if (n >= MIN_CONTADOR) {
+      document.getElementById('espera-num').textContent = n;
+      el.classList.add('vis');
+    } else {
+      el.classList.remove('vis');
+    }
+  } catch(e) {}
 }
 
 window.onload = init;
